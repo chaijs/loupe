@@ -2,7 +2,7 @@
   "name": "loupe",
   "repo": "chaijs/loupe",
   "description": "Inspect utility for Node.js and browsers",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "license": "MIT",
   "main": "lib/loupe.js",
   "scripts": [
