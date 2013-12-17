@@ -3,9 +3,26 @@
 
 # loupe
 
-## Synopsis
+Inspect utility for Node.js and browsers.
 
-## Description
+## Usage
+
+```
+var inspect = require('loupe');
+```
+<!-- js
+var inspect = require('./');
+-->
+
+```js
+inspect({ foo: 'bar' }); // => "{ foo: 'bar' }"
+inspect(1); // => '1'
+inspect('foo'); // => "'foo'"
+inspect([ 1, 2, 3 ]); // => '[ 1, 2, 3 ]'
+inspect(/Test/g); // => '/Test/g'
+
+// ...
+```
 
 ## Installation
 

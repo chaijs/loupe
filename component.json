@@ -5,10 +5,10 @@
   "version": "0.0.0",
   "license": "MIT",
   "main": "lib/loupe.js",
-  "dependencies": {
-    "component/assert": "*"
-  },
   "scripts": [
-    "lib/loupe.js"
+    "lib/loupe.js",
+    "lib/getEnumerableProperties.js",
+    "lib/getName.js",
+    "lib/getProperties.js"
   ]
 }

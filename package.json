@@ -6,6 +6,7 @@
   "homepage": "https://github.com/chaijs/loupe",
   "scripts": {
     "test": "hydro",
+    "readme": "jsmd README.md",
     "coverage": "istanbul cover _hydro",
     "coveralls": "istanbul cover _hydro --report lcovonly && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
@@ -21,7 +22,8 @@
     "coveralls": "~2.3.0",
     "istanbul": "~0.1.44",
     "component": "*",
-    "chai": "*"
+    "chai": "*",
+    "jsmd": "~0.2.0"
   },
   "author": "Veselin Todorov <hi@vesln.com>",
   "license": "MIT"
