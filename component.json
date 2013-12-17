@@ -1,7 +1,7 @@
 {
   "name": "loupe",
   "repo": "chaijs/loupe",
-  "description": "",
+  "description": "Inspect utility for Node.js and browsers",
   "version": "0.0.0",
   "license": "MIT",
   "main": "lib/loupe.js",
