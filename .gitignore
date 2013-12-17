@@ -1,0 +1,7 @@
+/coverage/
+/node_modules/
+/components/
+/build/
+npm-debug.log
+*.tmp.js
+/tmp/

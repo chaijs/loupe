@@ -1,0 +1,14 @@
+{
+  "name": "loupe",
+  "repo": "chaijs/loupe",
+  "description": "",
+  "version": "0.0.0",
+  "license": "MIT",
+  "main": "lib/loupe.js",
+  "dependencies": {
+    "component/assert": "*"
+  },
+  "scripts": [
+    "lib/loupe.js"
+  ]
+}

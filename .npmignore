@@ -1,0 +1,9 @@
+/test/
+/examples/
+/coverage/
+/components/
+/build/
+*.sock
+.travis.yml
+CHANGELOG.md
+hydro.conf.js
