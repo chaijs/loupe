@@ -20,7 +20,7 @@
     "hydro-chai": "*",
     "istanbul": "~0.1.44",
     "component": "*",
-    "chai": "*",
+    "chai": "3.5.0",
     "jsmd": "~0.2.0"
   },
   "author": "Veselin Todorov <hi@vesln.com>",
