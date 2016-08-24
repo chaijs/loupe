@@ -16,7 +16,7 @@
   "devDependencies": {
     "hydro": "*",
     "hydro-dot": "*",
-    "hydro-tdd": "*",
+    "hydro-tdd": "0.0.1",
     "hydro-chai": "*",
     "istanbul": "~0.4.3",
     "component": "*",
