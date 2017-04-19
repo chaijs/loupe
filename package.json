@@ -21,7 +21,7 @@
     "hydro-dot": "*",
     "hydro-tdd": "*",
     "hydro-chai": "*",
-    "istanbul": "~0.4.3",
+    "istanbul": "~0.4.5",
     "component": "*",
     "chai": "*",
     "jsmd": "~0.2.0"
