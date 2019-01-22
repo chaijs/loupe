@@ -83,6 +83,7 @@ const baseTypesMap = {
   Error: inspectError,
 }
 
+// eslint-disable-next-line complexity
 const inspectCustom = (value, options, type) => {
   if (chaiInspect in value && typeof value[chaiInspect] === 'function') {
     return value[chaiInspect](options)
