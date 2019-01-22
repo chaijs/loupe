@@ -15,7 +15,7 @@
     "url": "https://github.com/chaijs/loupe"
   },
   "scripts": {
-    "bench": "node bench",
+    "bench": "node -r esm bench",
     "commit-msg": "commitlint -x angular",
     "lint": "eslint --ignore-path .gitignore .",
     "prepare": "rollup -c rollup.conf.js",

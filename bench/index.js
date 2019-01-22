@@ -1,6 +1,6 @@
-const loupe = require('../')
-const nodeInspect = require('util').inspect
-const Benchmark = require('benchmark')
+import loupe from '../index'
+import { inspect as nodeInspect } from 'util'
+import Benchmark from 'benchmark'
 const benches = []
 const mapObjRefA = {}
 const mapObjRefB = {}
@@ -27,7 +27,7 @@ const fixtures = {
   'arguments                  ': getArguments(1, 2, 3),
 }
 
-function prepareBenchMark(test, name, inspect = loupe) {
+function prepareBenchMark(test, name, inspect) {
   benches.push(
     new Benchmark(name, {
       fn() {
@@ -47,7 +47,7 @@ const nodeinspect = process.argv.indexOf('--nodeinspect') !== -1
 Object.keys(fixtures)
   .filter(key => key.indexOf(filter) !== -1)
   .forEach(testName => {
-    prepareBenchMark(fixtures[testName], `${testName} (loupe)`)
+    prepareBenchMark(fixtures[testName], `${testName} (loupe)`, loupe)
     if (nodeinspect) {
       prepareBenchMark(fixtures[testName], `${testName}  (node)`, nodeInspect)
     }
