@@ -63,7 +63,7 @@ const baseTypesMap = {
 
   // WeakSet, WeakMap are totally opaque to us
   WeakSet: (value, options) => options.stylize('WeakSet{…}', 'special'),
-  WeakMap: (value, options) => options.stylize('WeakMap{…}', 'sepcial'),
+  WeakMap: (value, options) => options.stylize('WeakMap{…}', 'special'),
 
   Arguments: inspectArguments,
   Int8Array: inspectTypedArray,
@@ -118,7 +118,7 @@ export default function inspect(value, options) {
     return baseTypesMap[type](value, options)
   }
 
-  // If its a plain Object then use Loupe's inspector
+  // If it's a plain Object then use Loupe's inspector
   if (value && Object.getPrototypeOf(value) === Object.prototype) {
     return inspectObject(value, options)
   }
