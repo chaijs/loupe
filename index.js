@@ -118,8 +118,9 @@ export default function inspect(value, options) {
     return baseTypesMap[type](value, options)
   }
 
+  const proto = value ? Object.getPrototypeOf(value) : false
   // If it's a plain Object then use Loupe's inspector
-  if (value && Object.getPrototypeOf(value) === Object.prototype) {
+  if (proto === Object.prototype || proto === null) {
     return inspectObject(value, options)
   }
 
