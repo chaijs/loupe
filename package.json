@@ -24,8 +24,7 @@
     "pretest:browser": "npm run prepare",
     "test:browser": "karma start --singleRun=true",
     "posttest:browser": "npm run upload-coverage",
-    "pretest:node": "npm run prepare",
-    "test:node": "nyc mocha loupe.test.js",
+    "test:node": "nyc mocha",
     "posttest:node": "nyc report --report-dir \"coverage/node-$(node --version)\" --reporter=lcovonly && npm run upload-coverage",
     "upload-coverage": "codecov"
   },
