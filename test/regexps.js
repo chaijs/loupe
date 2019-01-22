@@ -75,5 +75,4 @@ describe('regexps', () => {
       expect(inspect(/foobarbaz/gim, { truncate: 0 })).to.equal('/…/gim')
     })
   })
-
 })

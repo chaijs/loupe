@@ -74,5 +74,4 @@ describe('arrays', () => {
       expect(inspect(arr)).to.equal("[ 'a', 'b', 'c', foo: 'bar' ]")
     })
   })
-
 })
