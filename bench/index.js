@@ -7,24 +7,26 @@ const mapObjRefB = {}
 function getArguments() {
   return arguments // eslint-disable-line prefer-rest-params
 }
+class A {}
 const fixtures = {
-  'string literal             ': 'abc',
-  'array literal              ': [1, 2, 3],
-  'boolean literal            ': true,
-  'object literal             ': { a: 1 },
-  'object from null           ': Object.create(null),
-  'regex literal              ': /^abc$/,
-  'number literal             ': 1,
-  'null                       ': null,
-  'undefined                  ': undefined,
-  'buffer                     ': Buffer.from('hello world'),
-  'date                       ': new Date(123),
-  'map                        ': new Map().set('a', 1),
-  'map (complex)              ': new Map().set(mapObjRefA, new Map().set(mapObjRefB, 1)),
-  'regex constructor          ': new RegExp('abc'),
-  'set                        ': new Set().add(1),
-  'string constructor         ': new String(),
-  'arguments                  ': getArguments(1, 2, 3),
+  'string literal     ': 'abc',
+  'array literal      ': [1, 2, 3],
+  'boolean literal    ': true,
+  'object literal     ': { a: 1 },
+  'object from null   ': Object.create(null),
+  'regex literal      ': /^abc$/,
+  'number literal     ': 1,
+  'null               ': null,
+  'undefined          ': undefined,
+  'buffer             ': Buffer.from('hello world'),
+  'date               ': new Date(123),
+  'map                ': new Map().set('a', 1),
+  'map (complex)      ': new Map().set(mapObjRefA, new Map().set(mapObjRefB, 1)),
+  'regex constructor  ': new RegExp('abc'),
+  'set                ': new Set().add(1),
+  'string constructor ': new String(),
+  'arguments          ': getArguments(1, 2, 3),
+  'class              ': new A(),
 }
 
 function prepareBenchMark(test, name, inspect) {
