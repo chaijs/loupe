@@ -4,6 +4,8 @@ describe('booleans', () => {
   it('returns `false` for false', () => {
     expect(inspect(false)).to.equal('false')
     expect(inspect(true)).to.equal('true')
+    expect(inspect(new Boolean(1))).to.equal('true')
+    expect(inspect(new Boolean(false))).to.equal('false')
   })
 
   it('returns `true` for true', () => {
