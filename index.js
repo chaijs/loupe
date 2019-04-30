@@ -21,6 +21,8 @@ import inspectClass from './lib/class'
 import inspectObject from './lib/object'
 import inspectArguments from './lib/arguments'
 import inspectError from './lib/error'
+import inspectHTMLElement from './lib/html'
+import inspectHTMLCollection from './lib/htmlcollection'
 
 import { normaliseOptions } from './lib/helpers'
 
@@ -81,6 +83,9 @@ const baseTypesMap = {
   ArrayBuffer: () => '',
 
   Error: inspectError,
+
+  HTMLCollection: inspectHTMLCollection,
+  NodeList: inspectHTMLCollection,
 }
 
 // eslint-disable-next-line complexity
@@ -123,6 +128,12 @@ export default function inspect(value, options) {
   // If it's a plain Object then use Loupe's inspector
   if (proto === Object.prototype || proto === null) {
     return inspectObject(value, options)
+  }
+
+  // Specifically account for HTMLElements
+  // eslint-disable-next-line no-undef
+  if (value && typeof HTMLElement === 'function' && value instanceof HTMLElement) {
+    return inspectHTMLElement(value, options)
   }
 
   // If `options.customInspect` is set to true then try to use the custom inspector
