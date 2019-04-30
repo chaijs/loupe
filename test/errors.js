@@ -27,5 +27,11 @@ describe('errors', () => {
       err.code = 404
       expect(inspect(err)).to.equal('Error: message { code: 404 }')
     })
+
+    it('will properly inspect a non-string message property', () => {
+      const err = new Error('message')
+      err.message = { code: 404 }
+      expect(inspect(err)).to.equal('Error { message: { code: 404 } }')
+    })
   })
 })
