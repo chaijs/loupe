@@ -47,13 +47,6 @@ jobs:
       before_install: npm i -g npm@6
       script: npm run test:node
     - stage: test
-      node_js: 8 # to be removed 2019-12-01
-      script: npm run test:node
-    - stage: test
-      node_js: 6 # to be removed 2019-04-01
-      before_install: npm i -g npm@6
-      script: npm run test:node
-    - stage: test
       node_js: lts/* # safety net; don't remove
       script: npm run test:node
     - stage: test
