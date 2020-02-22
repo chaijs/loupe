@@ -70,15 +70,21 @@ describe('HTMLElement', () => {
     })
 
     it('returns the full representation when truncate is over string length', () => {
-      expect(inspect(template, { truncate: 100 })).to.equal('<div id="foo" hidden><pre><code><span style="color:red"></span></code></pre></div>')
+      expect(inspect(template, { truncate: 100 })).to.equal(
+        '<div id="foo" hidden><pre><code><span style="color:red"></span></code></pre></div>'
+      )
     })
 
     it('truncates arguments values longer than truncate (81)', () => {
-      expect(inspect(template, { truncate: 81 })).to.equal('<div id="foo" hidden><pre><code><span …(1)></span></code></pre></div>')
+      expect(inspect(template, { truncate: 81 })).to.equal(
+        '<div id="foo" hidden><pre><code><span …(1)></span></code></pre></div>'
+      )
     })
 
     it('truncates arguments values longer than truncate (78)', () => {
-      expect(inspect(template, { truncate: 78 })).to.equal('<div id="foo" hidden><pre><code><span …(1)></span></code></pre></div>')
+      expect(inspect(template, { truncate: 78 })).to.equal(
+        '<div id="foo" hidden><pre><code><span …(1)></span></code></pre></div>'
+      )
     })
 
     it('truncates arguments values longer than truncate (77)', () => {
