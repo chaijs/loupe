@@ -9,7 +9,7 @@ cache:
     - node_modules
     - ~/.npm
 
-node_js: 11
+node_js: 12
 
 jobs:
   include:
@@ -39,11 +39,11 @@ jobs:
         - SAUCE_USERNAME="chaijs-type-detect"
         - SAUCE_CONNECT_READY_FILE=/tmp/sauce-connect-ready
     - stage: test
-      node_js: 11 # to be removed 2019-06-01
+      node_js: 10 # to be removed 2021-04-01
       before_install: npm i -g npm@6
       script: npm run test:node
     - stage: test
-      node_js: 10 # to be removed 2021-04-01
+      node_js: 12 # to be removed 2022-04-30
       before_install: npm i -g npm@6
       script: npm run test:node
     - stage: test
