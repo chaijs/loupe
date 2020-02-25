@@ -92,7 +92,7 @@ jobs:
 
   test-windows-browsers:
     name: Test on Windows Firefox, Chrome & Edge
-    runs-on: [windows]
+    runs-on: windows-latest
     steps:
     - name: Checkout the project
       uses: actions/checkout@v2
