@@ -90,6 +90,28 @@ jobs:
           echo "No xvfb processes to kill"
         fi
 
+  test-windows-browsers:
+    name: Test on Windows Firefox, Chrome & Edge
+    runs-on: [windows]
+    steps:
+    - name: Checkout the project
+      uses: actions/checkout@v2
+    - name: Cache node modules
+      uses: actions/cache@v1
+      with:
+        path: $APP_DATA/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+    - name: Use Node.js 12
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+    - name: Install dependencies
+      run: npm i
+    - name: Run Node.js Tests
+      run: npm run test:browser
+
   release:
     name: Publish a Release
     runs-on: ubuntu-latest
