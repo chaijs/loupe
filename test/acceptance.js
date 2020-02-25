@@ -11,13 +11,11 @@ describe('arrays', () => {
 })
 
 describe('objects', () => {
-  
   it('correctly inspects Symbols as object keys', () => {
-    expect(inspect({ [Symbol('foo')]: 1 })).to.equal("{ [Symbol(foo)]: 1 }")
-  })
-  
-  it('correctly inspects properties and Symbols as object keys', () => {
-    expect(inspect({ foo: 1, [Symbol('foo')]: 1 })).to.equal("{ foo: 1, [Symbol(foo)]: 1 }")
+    expect(inspect({ [Symbol('foo')]: 1 })).to.equal('{ [Symbol(foo)]: 1 }')
   })
 
+  it('correctly inspects properties and Symbols as object keys', () => {
+    expect(inspect({ foo: 1, [Symbol('foo')]: 1 })).to.equal('{ foo: 1, [Symbol(foo)]: 1 }')
+  })
 })

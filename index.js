@@ -113,6 +113,7 @@ const inspectCustom = (value, options, type) => {
   return ''
 }
 
+// eslint-disable-next-line complexity
 export default function inspect(value, options) {
   options = normaliseOptions(options)
   options.inspect = inspect
