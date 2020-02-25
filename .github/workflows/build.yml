@@ -60,9 +60,6 @@ jobs:
   test-linux-browsers:
     name: Test on Linux Firefox & Chrome
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        browser: [chrome, firefox]
     steps:
     - name: Checkout the project
       uses: actions/checkout@v2
@@ -73,18 +70,25 @@ jobs:
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
         restore-keys: |
           ${{ runner.os }}-node-
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Use Node.js 12
       uses: actions/setup-node@v1
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: 12.x
     - name: Install dependencies
       run: npm i
+    - name: Setup Headless Environment
+      run: sudo apt-get install xvfb
     - name: Run Node.js Tests
+      run: xvfb-run --auto-servernum npm run test:browser
+    - name: Cleanup Headless Environment
       run: |
-        export DISPLAY=:99.0
-        sh -e /etc/init.d/xvfb start
-        sleep 3
-        npm run test:browser
+        xvfb_pids=`ps aux | grep tmp/xvfb-run | grep -v grep | awk '{print $2}'`
+        if [ "$xvfb_pids" != "" ]; then
+          echo "Killing the following xvfb processes: $xvfb_pids"
+          sudo kill $xvfb_pids
+        else
+          echo "No xvfb processes to kill"
+        fi
 
   release:
     name: Publish a Release
