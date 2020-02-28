@@ -1,0 +1,140 @@
+name: Build
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout the project
+      uses: actions/checkout@v2
+    - name: Cache node modules
+      uses: actions/cache@v1
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+    - name: Use Node.js 12
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+    - name: Install dependencies
+      run: npm i
+    - name: Run lint step
+      run: npm run lint
+
+  test-node:
+    name: Test on Node.js
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version:
+        - 10.x # to be removed 2021-04-01
+        - 12.x # to be removed 2022-04-30
+        - x.x.x # safety net; don't remove
+    steps:
+    - name: Checkout the project
+      uses: actions/checkout@v2
+    - name: Cache node modules
+      uses: actions/cache@v1
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Install dependencies
+      run: npm i
+    - name: Run Node.js Tests
+      run: npm run test:node
+
+  test-linux-browsers:
+    name: Test on Linux Firefox & Chrome
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout the project
+      uses: actions/checkout@v2
+    - name: Cache node modules
+      uses: actions/cache@v1
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+    - name: Use Node.js 12
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+    - name: Install dependencies
+      run: npm i
+    - name: Setup Headless Environment
+      run: sudo apt-get install xvfb
+    - name: Run Node.js Tests
+      run: xvfb-run --auto-servernum npm run test:browser --browsers Chrome, Firefox
+    - name: Cleanup Headless Environment
+      run: |
+        xvfb_pids=`ps aux | grep tmp/xvfb-run | grep -v grep | awk '{print $2}'`
+        if [ "$xvfb_pids" != "" ]; then
+          echo "Killing the following xvfb processes: $xvfb_pids"
+          sudo kill $xvfb_pids
+        else
+          echo "No xvfb processes to kill"
+        fi
+
+  test-windows-browsers:
+    name: Test on Windows Firefox, Chrome & Edge
+    runs-on: windows-latest
+    steps:
+    - name: Checkout the project
+      uses: actions/checkout@v2
+    - name: Cache node modules
+      uses: actions/cache@v1
+      with:
+        path: $APP_DATA/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+    - name: Use Node.js 12
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+    - name: Install dependencies
+      run: npm i
+    - name: Run Node.js Tests
+      run: npm run test:browser --browsers Chrome, Firefox, Edge
+
+  release:
+    name: Publish a Release
+    runs-on: ubuntu-latest
+    if: github.event == 'push'
+    needs: [lint, test-node, test-linux-browsers]
+    steps:
+    - name: Checkout the project
+      uses: actions/checkout@v2
+    - name: Cache node modules
+      uses: actions/cache@v1
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+    - name: Use Node.js 12
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+    - name: Install dependencies
+      run: npm i
+    - name: Run Semantic Release
+      run: npm run semantic-release
+      env:
+       NPM_TOKEN: ${{secrets.NPM_TOKEN}}
+       GITHUB_TOKEN: ${{secrets.github_token}}
