@@ -4,6 +4,8 @@
  * MIT Licensed
  */
 
+import 'core-js/stable'
+import 'regenerator-runtime/runtime'
 import typeDetect from 'type-detect'
 
 import inspectArray from './lib/array'

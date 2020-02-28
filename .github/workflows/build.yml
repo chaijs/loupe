@@ -79,7 +79,7 @@ jobs:
     - name: Setup Headless Environment
       run: sudo apt-get install xvfb
     - name: Run Node.js Tests
-      run: xvfb-run --auto-servernum npm run test:browser
+      run: xvfb-run --auto-servernum npm run test:browser -- --browsers Chrome,Firefox
     - name: Cleanup Headless Environment
       run: |
         xvfb_pids=`ps aux | grep tmp/xvfb-run | grep -v grep | awk '{print $2}'`
@@ -110,7 +110,7 @@ jobs:
     - name: Install dependencies
       run: npm i
     - name: Run Node.js Tests
-      run: npm run test:browser
+      run: npm run test:browser -- --browsers Chrome,Firefox,IE
 
   release:
     name: Publish a Release
