@@ -91,7 +91,6 @@
   "devDependencies": {
     "@babel/core": "^7.8.4",
     "@babel/preset-env": "^7.8.6",
-    "core-js": "^3.6.4",
     "@commitlint/cli": "^8.3.5",
     "benchmark": "^2.1.4",
     "buble": "^0.19.8",
