@@ -1,3 +1,5 @@
+import 'core-js/stable'
+
 import './acceptance'
 import './arguments'
 import './arrays'
