@@ -37,9 +37,14 @@ describe('HTMLElement', () => {
           return Object.keys(this.attributes)
         }
       }
-      global.document = {}
-      global.document.createElement = tagName => new HTMLElement(tagName)
-      global.HTMLElement = HTMLElement
+      if (typeof global === 'undefined') {
+        window.document.createElement = tagName => new HTMLElement(tagName)
+        window.HTMLElement = HTMLElement
+      } else {
+        global.document = {}
+        global.document.createElement = tagName => new HTMLElement(tagName)
+        global.HTMLElement = HTMLElement
+      }
     }
   })
 
