@@ -55,6 +55,8 @@ const baseTypesMap = {
   Function: inspectFunction,
 
   symbol: inspectSymbol,
+  // A Symbol polyfill will return `Symbol` not `symbol` from typedetect
+  Symbol: inspectSymbol,
 
   Array: inspectArray,
   Date: inspectDate,

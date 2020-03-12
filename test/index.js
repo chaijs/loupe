@@ -1,8 +1,11 @@
+import 'core-js/stable'
+
 import './acceptance'
 import './arguments'
 import './arrays'
 import './booleans'
 import './buffers'
+import './class'
 import './dates'
 import './html'
 import './errors'

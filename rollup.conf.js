@@ -2,7 +2,23 @@ import coverage from 'rollup-plugin-istanbul'
 import common from 'rollup-plugin-commonjs'
 import resolve from 'rollup-plugin-node-resolve'
 import transform from 'rollup-plugin-babel'
-const plugins = [common({ namedExports: { chai: ['expect'] } }), resolve(), transform()]
+const plugins = [
+  common({ namedExports: { chai: ['expect'] } }),
+  resolve(),
+  transform({
+    exclude: 'node_modules/**',
+    presets: [
+      [
+        '@babel/preset-env',
+        {
+          targets: {
+            browsers: ['ie >= 11'],
+          },
+        },
+      ],
+    ],
+  }),
+]
 export default [
   {
     input: 'index.js',
