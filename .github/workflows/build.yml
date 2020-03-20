@@ -80,6 +80,9 @@ jobs:
       run: sudo apt-get install xvfb
     - name: Run Node.js Tests
       run: xvfb-run --auto-servernum npm run test:browser -- --browsers Chrome,Firefox
+    - name: Upload coverage
+      if: success()
+      uses: codecov/codecov-action@v1
     - name: Cleanup Headless Environment
       run: |
         xvfb_pids=`ps aux | grep tmp/xvfb-run | grep -v grep | awk '{print $2}'`
