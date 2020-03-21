@@ -1,5 +1,5 @@
 [![NPM version](https://badge.fury.io/js/loupe.png)](http://badge.fury.io/js/loupe)
-[![Build Status](https://secure.travis-ci.org/chaijs/loupe.png)](http://travis-ci.org/chaijs/loupe)
+![Build](https://github.com/chaijs/loupe/workflows/Build/badge.svg?branch=master)
 
 # loupe
 
