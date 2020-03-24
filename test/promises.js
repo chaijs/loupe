@@ -3,7 +3,7 @@ import { expect } from 'chai'
 const isNode = typeof process === 'object' && process.version
 describe('promises', () => {
   describe('browser', () => {
-    beforeEach(function() {
+    beforeEach(function () {
       if (isNode) {
         // eslint-disable-next-line no-invalid-this
         this.skip()
@@ -37,7 +37,7 @@ describe('promises', () => {
   })
 
   describe('node', () => {
-    beforeEach(function() {
+    beforeEach(function () {
       if (!isNode) {
         // eslint-disable-next-line no-invalid-this
         this.skip()
