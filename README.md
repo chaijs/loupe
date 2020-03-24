@@ -1,18 +1,32 @@
-[![NPM version](https://badge.fury.io/js/loupe.png)](http://badge.fury.io/js/loupe)
+![npm](https://img.shields.io/npm/v/loupe?logo=npm)
 ![Build](https://github.com/chaijs/loupe/workflows/Build/badge.svg?branch=master)
+![Codecov branch](https://img.shields.io/codecov/c/github/chaijs/loupe/master?logo=codecov)
 
-# loupe
+# What is loupe?
 
 Inspect utility for Node.js and browsers.
 
+## Installation
+
+### Node.js
+
+`loupe` is available on [npm](http://npmjs.org). To install it, type:
+
+    $ npm install loupe
+
+### Browsers
+
+You can also use it within the browser; install via npm and use the `loupe.js` file found within the download. For example:
+
+```html
+<script src="./node_modules/loupe/loupe.js"></script>
+```
+
 ## Usage
 
-```
+``` js
 var inspect = require('loupe');
 ```
-<!-- js
-var inspect = require('./');
--->
 
 ```js
 inspect({ foo: 'bar' }); // => "{ foo: 'bar' }"
@@ -24,26 +38,6 @@ inspect(/Test/g); // => '/Test/g'
 // ...
 ```
 
-## Installation
-
-npm:
-
-```bash
-npm install loupe
-```
-
-component:
-
-```bash
-component install chaijs/loupe
-```
-
-Standalone:
-
-```html
-<script src="loupe.js></script>
-```
-
 ## Tests
 
 ```bash
@@ -53,7 +47,7 @@ $ npm test
 Coverage:
 
 ```bash
-$ npm run coverage
+$ npm run upload-coverage
 ```
 
 ## License
