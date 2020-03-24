@@ -7,7 +7,7 @@ describe('functions', () => {
   })
 
   it('returns the `[Function]` if given anonymous function', () => {
-    expect(inspect(function() {})).to.equal('[Function]')
+    expect(inspect(function () {})).to.equal('[Function]')
   })
 
   describe('colors', () => {

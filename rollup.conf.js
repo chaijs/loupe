@@ -1,7 +1,8 @@
 import coverage from 'rollup-plugin-istanbul'
-import common from 'rollup-plugin-commonjs'
-import resolve from 'rollup-plugin-node-resolve'
+import common from '@rollup/plugin-commonjs'
+import resolve from '@rollup/plugin-node-resolve'
 import transform from 'rollup-plugin-babel'
+
 const plugins = [
   common({ namedExports: { chai: ['expect'] } }),
   resolve(),
@@ -14,6 +15,8 @@ const plugins = [
           targets: {
             browsers: ['ie >= 11'],
           },
+          useBuiltIns: 'entry',
+          corejs: 3,
         },
       ],
     ],
