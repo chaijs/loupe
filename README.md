@@ -4,7 +4,7 @@
 
 # What is loupe?
 
-Inspect utility for Node.js and browsers.
+Loupe turns the object you give it into a string. It's similar to Node.js' `util.inspect()` function, but it works cross platform, in most modern browsers as well as Node.
 
 ## Installation
 
