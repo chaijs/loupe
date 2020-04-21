@@ -118,7 +118,6 @@ jobs:
   release:
     name: Publish a Release
     runs-on: ubuntu-latest
-    if: github.event == 'push'
     needs: [lint, test-node, test-linux-browsers]
     steps:
     - name: Checkout the project
