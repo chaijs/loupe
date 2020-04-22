@@ -21,8 +21,7 @@ import inspectClass from './lib/class'
 import inspectObject from './lib/object'
 import inspectArguments from './lib/arguments'
 import inspectError from './lib/error'
-import inspectHTMLElement from './lib/html'
-import inspectHTMLCollection from './lib/htmlcollection'
+import inspectHTMLElement, { inspectHTMLCollection } from './lib/html'
 
 import { normaliseOptions } from './lib/helpers'
 
