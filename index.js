@@ -115,7 +115,7 @@ const inspectCustom = (value, options, type) => {
 }
 
 // eslint-disable-next-line complexity
-export default function inspect(value, options) {
+export function inspect(value, options) {
   options = normaliseOptions(options)
   options.inspect = inspect
   const { customInspect } = options
@@ -170,3 +170,5 @@ export function registerStringTag(stringTag, inspector) {
 }
 
 export const custom = chaiInspect
+
+export default inspect
