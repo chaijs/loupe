@@ -1,6 +1,11 @@
 import inspect from '../index'
 import { expect } from 'chai'
 describe('symbols', () => {
+  /* eslint-disable */
+  it('returns Symbol() for empty Symbol', () => {
+    expect(inspect(Symbol())).to.equal("'Symbol()'")
+  })
+
   it('returns string wrapped in quotes', () => {
     expect(inspect('abc')).to.equal("'abc'")
   })
