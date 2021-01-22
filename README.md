@@ -25,7 +25,7 @@ You can also use it within the browser; install via npm and use the `loupe.js` f
 ## Usage
 
 ``` js
-var inspect = require('loupe');
+const { inspect } = require('loupe');
 ```
 
 ```js
