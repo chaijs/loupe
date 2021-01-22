@@ -4,7 +4,7 @@ import resolve from '@rollup/plugin-node-resolve'
 import transform from 'rollup-plugin-babel'
 
 const plugins = [
-  common({ namedExports: { chai: ['expect'] } }),
+  common(),
   resolve(),
   transform({
     exclude: 'node_modules/**',
