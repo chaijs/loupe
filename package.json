@@ -1,6 +1,6 @@
 {
   "name": "loupe",
-  "version": "0.0.0-development",
+  "version": "2.0.1",
   "description": "Inspect utility for Node.js and browsers",
   "homepage": "https://github.com/chaijs/loupe",
   "license": "MIT",
