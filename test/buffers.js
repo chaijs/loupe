@@ -12,6 +12,10 @@ describe('buffers', () => {
     expect(inspect(Buffer.from(''))).to.equal('Buffer[]')
   })
 
+  it('returns a populated buffer', () => {
+    expect(inspect(Buffer.from([2, 3, 4]))).to.equal('Buffer[ 2, 3, 4 ]')
+  })
+
   describe('truncate', () => {
     it('returns the full representation when truncate is over string length', () => {
       expect(inspect(Buffer.from([1, 2, 3]), { truncate: 21 })).to.equal('Buffer[ 1, 2, 3 ]')
