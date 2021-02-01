@@ -26,7 +26,7 @@ describe('objects', () => {
     expect(inspect(obj, { customInspect: false })).to.equal('{ inspect: [Function inspect] }')
   })
   
-  it('uses custom inspect function is `customInspect` is turned on', () => {
+  it('uses custom inspect function if `customInspect` is turned on', () => {
     const obj = {
       'inspect': () => 1
     }
