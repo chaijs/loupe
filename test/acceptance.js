@@ -16,6 +16,20 @@ describe('objects', () => {
   })
 
   it('correctly inspects properties and Symbols as object keys', () => {
-    expect(inspect({ foo: 1, [Symbol('foo')]: 1 })).to.equal('{ foo: 1, [Symbol(foo)]: 1 }')
+    expect(inspect({foo: 1, [Symbol('foo')]: 1})).to.equal('{ foo: 1, [Symbol(foo)]: 1 }')
+  })
+
+  it('does not use custom inspect functions if `customInspect` is turned off', () => {
+    const obj = {
+      'inspect': () => 1
+    }
+    expect(inspect(obj, { customInspect: false })).to.equal('{ inspect: [Function inspect] }')
+  })
+  
+  it('uses custom inspect function is `customInspect` is turned on', () => {
+    const obj = {
+      'inspect': () => 1
+    }
+    expect(inspect(obj, { customInspect: true })).to.equal(1)
   })
 })

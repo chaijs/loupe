@@ -126,6 +126,12 @@ export function inspect(value, options) {
     return baseTypesMap[type](value, options)
   }
 
+  // If `options.customInspect` is set to true then try to use the custom inspector
+  if (customInspect && value) {
+    const output = inspectCustom(value, options, type)
+    if (output) return output
+  }
+
   const proto = value ? Object.getPrototypeOf(value) : false
   // If it's a plain Object then use Loupe's inspector
   if (proto === Object.prototype || proto === null) {
@@ -136,12 +142,6 @@ export function inspect(value, options) {
   // eslint-disable-next-line no-undef
   if (value && typeof HTMLElement === 'function' && value instanceof HTMLElement) {
     return inspectHTMLElement(value, options)
-  }
-
-  // If `options.customInspect` is set to true then try to use the custom inspector
-  if (customInspect && value) {
-    const output = inspectCustom(value, options, type)
-    if (output) return output
   }
 
   // If it is a class, inspect it like an object but add the constructor name
