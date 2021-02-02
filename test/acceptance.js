@@ -18,4 +18,27 @@ describe('objects', () => {
   it('correctly inspects properties and Symbols as object keys', () => {
     expect(inspect({ foo: 1, [Symbol('foo')]: 1 })).to.equal('{ foo: 1, [Symbol(foo)]: 1 }')
   })
+
+  it('does not use custom inspect functions if `customInspect` is turned off', () => {
+    const obj = {
+      inspect: () => 1,
+    }
+    expect(inspect(obj, { customInspect: false })).to.equal('{ inspect: [Function inspect] }')
+  })
+
+  it('uses custom inspect function if `customInspect` is turned on', () => {
+    const obj = {
+      inspect: () => 1,
+    }
+    expect(inspect(obj, { customInspect: true })).to.equal(1)
+  })
+
+  it('uses a custom deeply nested inspect function if `customInspect` is turned on', () => {
+    const obj = {
+      sub: {
+        inspect: (depth, options) => options.stylize('Object content', 'string'),
+      },
+    }
+    expect(inspect(obj, { customInspect: true })).to.equal('{ sub: Object content }')
+  })
 })
