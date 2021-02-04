@@ -30,7 +30,7 @@ describe('objects', () => {
     const obj = {
       inspect: () => 1,
     }
-    expect(inspect(obj, { customInspect: true })).to.equal(1)
+    expect(inspect(obj, { customInspect: true })).to.equal('1')
   })
 
   it('uses a custom deeply nested inspect function if `customInspect` is turned on', () => {
@@ -39,6 +39,16 @@ describe('objects', () => {
         inspect: (depth, options) => options.stylize('Object content', 'string'),
       },
     }
-    expect(inspect(obj, { customInspect: true })).to.equal('{ sub: Object content }')
+    expect(inspect(obj, { customInspect: true })).to.equal("{ sub: 'Object content' }")
+  })
+
+  it('inspect with custom object-returning inspect', () => {
+    const obj = {
+      sub: {
+        inspect: () => ({ foo: 'bar' }),
+      },
+    }
+
+    expect(inspect(obj, { customInspect: true })).to.equal("{ sub: { foo: 'bar' } }")
   })
 })
