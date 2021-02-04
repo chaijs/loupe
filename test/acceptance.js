@@ -41,4 +41,14 @@ describe('objects', () => {
     }
     expect(inspect(obj, { customInspect: true })).to.equal('{ sub: Object content }')
   })
+
+  it('inspect with custom object-returning inspect', () => {
+    const obj = {
+      sub: {
+        inspect: () => ({ foo: 'bar' }),
+      },
+    }
+
+    expect(inspect(obj, { customInspect: true })).to.equal("{ sub: { foo: 'bar' } }")
+  })
 })
