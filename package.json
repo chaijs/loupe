@@ -90,7 +90,7 @@
     "bracketSpacing": true
   },
   "dependencies": {
-    "get-function-name": "0.0.1",
+    "get-func-name": "^2.0.0",
     "type-detect": "^4.0.8"
   },
   "devDependencies": {

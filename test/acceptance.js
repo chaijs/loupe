@@ -39,16 +39,23 @@ describe('objects', () => {
         inspect: (depth, options) => options.stylize('Object content', 'string'),
       },
     }
-    expect(inspect(obj, { customInspect: true })).to.equal("{ sub: 'Object content' }")
+    expect(inspect(obj, {customInspect: true})).to.equal("{ sub: 'Object content' }")
   })
 
   it('inspect with custom object-returning inspect', () => {
     const obj = {
       sub: {
-        inspect: () => ({ foo: 'bar' }),
+        inspect: () => ({foo: 'bar'}),
       },
     }
 
-    expect(inspect(obj, { customInspect: true })).to.equal("{ sub: { foo: 'bar' } }")
+    expect(inspect(obj, {customInspect: true})).to.equal("{ sub: { foo: 'bar' } }")
+  })
+
+})
+
+describe('arrays', () => {
+  it('can contain anonymous functions', () => {
+    expect(inspect([() => 1])).to.equal('[ [Function] ]')
   })
 })
