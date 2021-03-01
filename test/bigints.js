@@ -1,5 +1,5 @@
 import inspect from '../index'
-import {expect} from 'chai'
+import { expect } from 'chai'
 describe('bigints', () => {
   it('returns number as passed in', () => {
     expect(inspect(1n)).to.equal('1n')
@@ -68,5 +68,4 @@ describe('bigints', () => {
       expect(inspect(3n, { truncate: 0 })).to.equal('3n')
     })
   })
-
 })

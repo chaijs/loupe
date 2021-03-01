@@ -49,6 +49,7 @@
       "strict/es6"
     ],
     "rules": {
+      "comma-dangle": "off",
       "func-style": "off",
       "no-magic-numbers": "off",
       "class-methods-use-this": "off",
