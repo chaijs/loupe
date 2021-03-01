@@ -12,6 +12,7 @@ import inspectDate from './lib/date'
 import inspectFunction from './lib/function'
 import inspectMap from './lib/map'
 import inspectNumber from './lib/number'
+import inspectBigInt from './lib/bigint'
 import inspectRegExp from './lib/regexp'
 import inspectSet from './lib/set'
 import inspectString from './lib/string'
@@ -46,6 +47,9 @@ const baseTypesMap = {
 
   number: inspectNumber,
   Number: inspectNumber,
+
+  bigint: inspectBigInt,
+  BigInt: inspectBigInt,
 
   string: inspectString,
   String: inspectString,
