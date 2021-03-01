@@ -52,3 +52,9 @@ describe('objects', () => {
     expect(inspect(obj, { customInspect: true })).to.equal("{ sub: { foo: 'bar' } }")
   })
 })
+
+describe('arrays', () => {
+  it('can contain anonymous functions', () => {
+    expect(inspect([() => 1])).to.equal('[ [Function] ]')
+  })
+})
