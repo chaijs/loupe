@@ -10,6 +10,23 @@ for (const [suite, inspect] of Object.entries({
       expect(inspect({})).to.equal('{}')
     })
 
+    it('quotes a key if it contains special chars', () => {
+      expect(inspect({ 'a.b': 1 })).to.equal("{ 'a.b': 1 }")
+      expect(inspect({ 'a b': 1 })).to.equal("{ 'a b': 1 }")
+    })
+
+    it('quotes a key if it is empty', () => {
+      expect(inspect({ '': 1 })).to.equal("{ '': 1 }")
+    })
+
+    it('quotes a key if it contains a single quote', () => {
+      expect(inspect({ "'": 1 })).to.equal("{ '\\'': 1 }")
+    })
+
+    it('quotes a key if it contains a double quote', () => {
+      expect(inspect({ '"': 1 })).to.equal("{ '\"': 1 }")
+    })
+
     describe('truncate', () => {
       it('returns the full representation when truncate is over string length', () => {
         expect(inspect({ a: 1, b: 2, c: 3 }, { truncate: 20 })).to.equal('{ a: 1, b: 2, c: 3 }')
