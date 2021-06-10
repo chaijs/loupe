@@ -10,6 +10,14 @@ for (const [suite, inspect] of Object.entries({
       expect(inspect({})).to.equal('{}')
     })
 
+    if (suite === 'objects') {
+      it('detects circular references', () => {
+        const main = {}
+        main.a = main
+        expect(inspect(main)).to.equal('{ a: [Circular] }')
+      })
+    }
+
     describe('truncate', () => {
       it('returns the full representation when truncate is over string length', () => {
         expect(inspect({ a: 1, b: 2, c: 3 }, { truncate: 20 })).to.equal('{ a: 1, b: 2, c: 3 }')
