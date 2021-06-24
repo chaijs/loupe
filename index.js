@@ -133,7 +133,10 @@ export function inspect(value, options) {
   // If `options.customInspect` is set to true then try to use the custom inspector
   if (customInspect && value) {
     const output = inspectCustom(value, options, type)
-    if (output) return inspect(output, options)
+    if (output) {
+      if (typeof output === 'string') return output
+      return inspect(output, options)
+    }
   }
 
   const proto = value ? Object.getPrototypeOf(value) : false
