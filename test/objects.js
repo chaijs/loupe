@@ -33,7 +33,7 @@ for (const [suite, inspect] of Object.entries({
         main.a = main
         expect(inspect(main)).to.equal('{ a: [Circular] }')
       })
-    } 
+    }
 
     describe('truncate', () => {
       it('returns the full representation when truncate is over string length', () => {
