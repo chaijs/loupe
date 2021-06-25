@@ -35,6 +35,16 @@ for (const [suite, inspect] of Object.entries({
       })
     }
 
+    it('returns `{}` for empty objects with an anonoymous prototype', () => {
+      expect(inspect(Object.create({ a: 1 }))).to.equal('{}')
+    })
+
+    it("shows objects' own properties for objects with an anonoymous prototype", () => {
+      const obj = Object.create({ a: 1 })
+      obj.b = 2
+      expect(inspect(obj)).to.equal('{ b: 2 }')
+    })
+
     describe('truncate', () => {
       it('returns the full representation when truncate is over string length', () => {
         expect(inspect({ a: 1, b: 2, c: 3 }, { truncate: 20 })).to.equal('{ a: 1, b: 2, c: 3 }')

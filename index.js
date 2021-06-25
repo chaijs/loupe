@@ -151,9 +151,14 @@ export function inspect(value, options) {
     return inspectHTMLElement(value, options)
   }
 
-  // If it is a class, inspect it like an object but add the constructor name
-  if ('constructor' in value && value.constructor !== Object) {
-    return inspectClass(value, options)
+  if ('constructor' in value) {
+    // If it is a class, inspect it like an object but add the constructor name
+    if (value.constructor !== Object) {
+      return inspectClass(value, options)
+    }
+
+    // If it is an object with an anonymous prototype, display it as an object.
+    return inspectObject(value, options)
   }
 
   // We have run out of options! Just stringify the value
