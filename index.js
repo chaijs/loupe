@@ -4,8 +4,6 @@
  * MIT Licensed
  */
 
-import typeDetect from 'type-detect'
-
 import inspectArray from './lib/array'
 import inspectTypedArray from './lib/typedarray'
 import inspectDate from './lib/date'
@@ -118,12 +116,17 @@ const inspectCustom = (value, options, type) => {
   return ''
 }
 
+const toString = Object.prototype.toString
+
 // eslint-disable-next-line complexity
 export function inspect(value, options) {
   options = normaliseOptions(options)
   options.inspect = inspect
   const { customInspect } = options
-  const type = typeDetect(value)
+  let type = value === null ? 'null' : typeof value
+  if (type === 'object') {
+    type = toString.call(value).slice(8, -1)
+  }
 
   // If it is a base value that we already support, then use Loupe's inspector
   if (baseTypesMap[type]) {
