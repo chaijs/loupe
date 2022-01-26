@@ -1,10 +1,11 @@
 import inspect from '../index'
 import { expect } from 'chai'
 const isNode = typeof process === 'object' && process.version
+const canInspectPromises = isNode && 'getPromiseDetails' in process.binding('util')
 describe('promises', () => {
-  describe('browser', () => {
+  describe('default behaviour', () => {
     beforeEach(function () {
-      if (isNode) {
+      if (isNode && canInspectPromises) {
         // eslint-disable-next-line no-invalid-this
         this.skip()
       }
@@ -36,9 +37,9 @@ describe('promises', () => {
     })
   })
 
-  describe('node', () => {
+  describe('node <= 16', () => {
     beforeEach(function () {
-      if (!isNode) {
+      if (!isNode || !canInspectPromises) {
         // eslint-disable-next-line no-invalid-this
         this.skip()
       }
