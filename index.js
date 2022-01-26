@@ -29,8 +29,8 @@ const chaiInspect = symbolsSupported ? Symbol.for('chai/inspect') : '@@chai/insp
 let nodeInspect = false
 try {
   // eslint-disable-next-line global-require
-  const nodeUtil = require('util');
-  nodeInspect = nodeUtil.inspect ? nodeUtil.inspect.custom : false;
+  const nodeUtil = require('util')
+  nodeInspect = nodeUtil.inspect ? nodeUtil.inspect.custom : false
 } catch (noNodeInspect) {
   nodeInspect = false
 }
