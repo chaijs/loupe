@@ -10,9 +10,7 @@
   ],
   "main": "./loupe.js",
   "module": "./index.js",
-  "browser": {
-    "util": false
-  },
+  "browser": "./loupe.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/chaijs/loupe"
