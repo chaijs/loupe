@@ -10,7 +10,10 @@
   ],
   "main": "./loupe.js",
   "module": "./index.js",
-  "browser": "./loupe.js",
+  "browser": {
+    "./index.js": "./loupe.js",
+    "util": false
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/chaijs/loupe"
@@ -37,7 +40,7 @@
   "eslintConfig": {
     "root": true,
     "parserOptions": {
-      "ecmaVersion": "2020"
+      "ecmaVersion": 2020
     },
     "env": {
       "es6": true
