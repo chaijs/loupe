@@ -39,6 +39,10 @@ for (const [suite, inspect] of Object.entries({
       expect(inspect(Object.create({ a: 1 }))).to.equal('{}')
     })
 
+    it('returns `{}` for empty objects with a null prototype', () => {
+      expect(inspect(Object.create(Object.create(null)))).to.equal('{}')
+    })
+
     it("shows objects' own properties for objects with an anonoymous prototype", () => {
       const obj = Object.create({ a: 1 })
       obj.b = 2
