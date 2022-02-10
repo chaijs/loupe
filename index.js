@@ -165,6 +165,11 @@ export function inspect(value, options) {
     return inspectObject(value, options)
   }
 
+  // last chance to check if it's an object
+  if (value === Object(value)) {
+    return inspectObject(value, options)
+  }
+
   // We have run out of options! Just stringify the value
   return options.stylize(String(value), type)
 }
