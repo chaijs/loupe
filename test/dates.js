@@ -5,6 +5,11 @@ describe('date', () => {
     expect(inspect(new Date(1475318637123))).to.equal('2016-10-01T10:43:57.123Z')
   })
 
+  it('returns "Invalid Date" if given an invalid Date object', () => {
+    // See: https://github.com/chaijs/loupe/issues/58
+    expect(inspect(new Date('not a date'))).to.equal('Invalid Date')
+  })
+
   describe('colors', () => {
     it('returns date with red color, if colour is set to true', () => {
       expect(inspect(new Date(1475318637123), { colors: true })).to.equal(
