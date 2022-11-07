@@ -35,7 +35,26 @@ try {
   nodeInspect = false
 }
 
-const constructorMap = new WeakMap()
+function FakeMap() {
+  this._key = 'chai/loupe__' + Math.random() + Date.now();
+}
+FakeMap.prototype = {
+  get: function get(key) {
+    return key[this._key];
+  },
+  has: function has(key) {
+    return this._key in key;
+  },
+  set: function set(key, value) {
+    if (Object.isExtensible(key)) {
+      Object.defineProperty(key, this._key, {
+        value: value,
+        configurable: true,
+      });
+    }
+  },
+};
+const constructorMap = new (typeof WeakMap === 'function' ? WeakMap : FakeMap)()
 const stringTagMap = {}
 const baseTypesMap = {
   undefined: (value, options) => options.stylize('undefined', 'undefined'),
@@ -178,7 +197,7 @@ export function registerConstructor(constructor, inspector) {
   if (constructorMap.has(constructor)) {
     return false
   }
-  constructorMap.add(constructor, inspector)
+  constructorMap.set(constructor, inspector)
   return true
 }
 
