@@ -52,6 +52,7 @@ FakeMap.prototype = {
   set: function set(key, value) {
     if (Object.isExtensible(key)) {
       Object.defineProperty(key, this.key, {
+        // eslint-disable-next-line object-shorthand
         value: value,
         configurable: true,
       })
