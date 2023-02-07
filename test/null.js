@@ -1,5 +1,6 @@
 import inspect from '../index.js'
-import { expect } from 'chai'
+import pkg from 'chai'
+const { expect } = pkg
 describe('null', () => {
   it('returns `null`', () => {
     expect(inspect(null)).to.equal('null')

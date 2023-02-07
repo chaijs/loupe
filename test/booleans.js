@@ -1,5 +1,6 @@
 import inspect from '../index.js'
-import { expect } from 'chai'
+import pkg from 'chai'
+const { expect } = pkg
 describe('booleans', () => {
   it('returns `false` for false', () => {
     expect(inspect(false)).to.equal('false')

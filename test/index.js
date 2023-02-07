@@ -1,4 +1,4 @@
-import 'core-js/stable'
+import 'core-js/stable/index.js'
 
 import './acceptance.js'
 import './arguments.js'

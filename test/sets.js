@@ -1,5 +1,6 @@
 import inspect from '../index.js'
-import { expect } from 'chai'
+import pkg from 'chai'
+const { expect } = pkg
 describe('sets', () => {
   it('returns `Set{}` for empty sets', () => {
     expect(inspect(new Set())).to.equal('Set{}')

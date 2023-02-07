@@ -1,5 +1,6 @@
 import inspect from '../index.js'
-import { expect } from 'chai'
+import pkg from 'chai'
+const { expect } = pkg
 function args() {
   // eslint-disable-next-line prefer-rest-params
   return arguments

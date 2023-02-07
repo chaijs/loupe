@@ -1,5 +1,6 @@
 import inspect from '../index.js'
-import { expect } from 'chai'
+import pkg from 'chai'
+const { expect } = pkg
 describe('symbols', () => {
   /* eslint-disable */
   it('returns Symbol() for empty Symbol', () => {

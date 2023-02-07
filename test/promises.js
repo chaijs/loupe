@@ -1,5 +1,6 @@
 import inspect from '../index.js'
-import { expect } from 'chai'
+import pkg from 'chai'
+const { expect } = pkg
 const isNode = typeof process === 'object' && process.version
 const canInspectPromises = isNode && 'getPromiseDetails' in process.binding('util')
 describe('promises', () => {

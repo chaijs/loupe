@@ -1,6 +1,7 @@
 /* eslint-disable prefer-arrow-callback */
 import inspect from '../index.js'
-import { expect } from 'chai'
+import pkg from 'chai'
+const { expect } = pkg
 describe('functions', () => {
   it('returns the functions name wrapped in `[Function ]`', () => {
     expect(inspect(function foo() {})).to.equal('[Function foo]')

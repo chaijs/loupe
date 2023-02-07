@@ -1,5 +1,6 @@
 import inspect from '../index.js'
-import { expect } from 'chai'
+import pkg from 'chai'
+const { expect } = pkg
 describe('buffers', () => {
   beforeEach(function () {
     if (typeof Buffer !== 'function') {

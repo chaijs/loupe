@@ -1,5 +1,6 @@
 import inspect from '../index.js'
-import { expect } from 'chai'
+import pkg from 'chai'
+const { expect } = pkg
 describe('strings', () => {
   it('returns string wrapped in quotes', () => {
     expect(inspect('abc')).to.equal("'abc'")
