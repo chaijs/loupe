@@ -1,4 +1,4 @@
-import inspect from '../index'
+import inspect from '../index.js'
 import { expect } from 'chai'
 // eslint-disable-next-line id-length
 const h = (name, attributes, ...children) => {

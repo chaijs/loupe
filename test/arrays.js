@@ -1,4 +1,4 @@
-import inspect from '../index'
+import inspect from '../index.js'
 import { expect } from 'chai'
 describe('arrays', () => {
   it('returns `[]` for empty arrays', () => {

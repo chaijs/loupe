@@ -1,4 +1,4 @@
-import inspect from '../index'
+import inspect from '../index.js'
 import { expect } from 'chai'
 const isNode = typeof process === 'object' && process.version
 const canInspectPromises = isNode && 'getPromiseDetails' in process.binding('util')

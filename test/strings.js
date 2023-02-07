@@ -1,4 +1,4 @@
-import inspect from '../index'
+import inspect from '../index.js'
 import { expect } from 'chai'
 describe('strings', () => {
   it('returns string wrapped in quotes', () => {
