@@ -35,31 +35,7 @@ try {
   nodeInspect = false
 }
 
-function FakeMap() {
-  // eslint-disable-next-line prefer-template
-  this.key = 'chai/loupe__' + Math.random() + Date.now()
-}
-FakeMap.prototype = {
-  // eslint-disable-next-line object-shorthand
-  get: function get(key) {
-    return key[this.key]
-  },
-  // eslint-disable-next-line object-shorthand
-  has: function has(key) {
-    return this.key in key
-  },
-  // eslint-disable-next-line object-shorthand
-  set: function set(key, value) {
-    if (Object.isExtensible(key)) {
-      Object.defineProperty(key, this.key, {
-        // eslint-disable-next-line object-shorthand
-        value: value,
-        configurable: true,
-      })
-    }
-  },
-}
-const constructorMap = new (typeof WeakMap === 'function' ? WeakMap : FakeMap)()
+const constructorMap = new WeakMap()
 const stringTagMap = {}
 const baseTypesMap = {
   undefined: (value, options) => options.stylize('undefined', 'undefined'),
