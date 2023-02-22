@@ -1,4 +1,5 @@
-import { inspectList, inspectProperty, truncate } from './helpers.js'
+import { inspectList, inspectProperty, truncate } from './helpers.ts'
+import type { Inspect, Options } from './types.ts'
 
 const errorKeys = [
   'stack',
@@ -13,7 +14,7 @@ const errorKeys = [
   'description',
 ]
 
-export default function inspectObject(error, options) {
+export default function inspectObject(error: Error, options: Options) {
   const properties = Object.getOwnPropertyNames(error).filter(key => errorKeys.indexOf(key) === -1)
   const name = error.name
   options.truncate -= name.length
@@ -26,9 +27,9 @@ export default function inspectObject(error, options) {
   message = message ? `: ${message}` : ''
   options.truncate -= message.length + 5
   const propertyContents = inspectList(
-    properties.map(key => [key, error[key]]),
+    properties.map(key => [key, error[key as keyof typeof error]]),
     options,
-    inspectProperty
+    inspectProperty as Inspect
   )
   return `${name}${message}${propertyContents ? ` { ${propertyContents} }` : ''}`
 }

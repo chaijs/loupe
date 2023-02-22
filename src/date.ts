@@ -1,6 +1,7 @@
-import { truncate } from './helpers.js'
+import { truncate } from './helpers.ts'
+import type { Options } from './types.ts'
 
-export default function inspectDate(dateObject, options) {
+export default function inspectDate(dateObject: Date, options: Options) {
   const stringRepresentation = dateObject.toJSON()
 
   if (stringRepresentation === null) {

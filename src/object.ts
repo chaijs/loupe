@@ -1,6 +1,7 @@
-import { inspectList, inspectProperty } from './helpers.js'
+import { inspectList, inspectProperty } from './helpers.ts'
+import type { Inspect, Options } from './types.ts'
 
-export default function inspectObject(object, options) {
+export default function inspectObject(object: object, options: Options): string {
   const properties = Object.getOwnPropertyNames(object)
   const symbols = Object.getOwnPropertySymbols ? Object.getOwnPropertySymbols(object) : []
   if (properties.length === 0 && symbols.length === 0) {
@@ -13,14 +14,14 @@ export default function inspectObject(object, options) {
   }
   options.seen.push(object)
   const propertyContents = inspectList(
-    properties.map(key => [key, object[key]]),
+    properties.map(key => [key, object[key as keyof typeof object]]),
     options,
-    inspectProperty
+    inspectProperty as Inspect
   )
   const symbolContents = inspectList(
-    symbols.map(key => [key, object[key]]),
+    symbols.map(key => [key, object[key as keyof typeof object]]),
     options,
-    inspectProperty
+    inspectProperty as Inspect
   )
   options.seen.pop()
   let sep = ''

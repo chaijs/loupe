@@ -9,8 +9,8 @@
     "Keith Cirkel (https://github.com/keithamus)"
   ],
   "type": "module",
-  "main": "./index.js",
-  "module": "./index.js",
+  "main": "./lib/index.js",
+  "module": "./lib/index.js",
   "browser": {
     "./index.js": "./loupe.js",
     "util": false
@@ -21,7 +21,6 @@
   },
   "files": [
     "loupe.js",
-    "index.js",
     "lib/*"
   ],
   "scripts": {
@@ -126,6 +125,7 @@
     "nyc": "^15.1.0",
     "prettier": "^2.2.1",
     "semantic-release": "^17.3.6",
-    "simple-assert": "^1.0.0"
+    "simple-assert": "^1.0.0",
+    "typescript": "^5.0.0-beta"
   }
 }

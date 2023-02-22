@@ -1,6 +1,7 @@
-import { inspectList, inspectProperty } from './helpers.js'
+import { inspectList, inspectProperty } from './helpers.ts'
+import type { Inspect, Options } from './types.ts'
 
-export default function inspectArray(array, options) {
+export default function inspectArray(array: ArrayLike<unknown>, options: Options) {
   // Object.keys will always output the Array indices first, so we can slice by
   // `array.length` to get non-index properties
   const nonIndexProperties = Object.keys(array).slice(array.length)
@@ -11,9 +12,9 @@ export default function inspectArray(array, options) {
   let propertyContents = ''
   if (nonIndexProperties.length) {
     propertyContents = inspectList(
-      nonIndexProperties.map(key => [key, array[key]]),
+      nonIndexProperties.map(key => [key, array[key as keyof typeof array]]),
       options,
-      inspectProperty
+      inspectProperty as Inspect
     )
   }
   return `[ ${listContents}${propertyContents ? `, ${propertyContents}` : ''} ]`

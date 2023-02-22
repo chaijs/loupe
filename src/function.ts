@@ -1,6 +1,7 @@
-import { truncate } from './helpers.js'
+import { truncate } from './helpers.ts'
+import type { Options } from './types.ts'
 
-export default function inspectFunction(func, options) {
+export default function inspectFunction(func: Function, options: Options) {
   const name = func.name
   if (!name) {
     return options.stylize('[Function]', 'special')

@@ -1,7 +1,20 @@
-import { inspectList, inspectProperty, truncate, truncator } from './helpers.js'
+import { inspectList, inspectProperty, truncate, truncator } from './helpers.ts'
+import type { Inspect, Options } from './types.ts'
 
-const getArrayName = array => {
+type TypedArray =
+  | Int8Array
+  | Uint8Array
+  | Uint8ClampedArray
+  | Int16Array
+  | Uint16Array
+  | Int32Array
+  | Uint32Array
+  | Float32Array
+  | Float64Array
+
+const getArrayName = (array: TypedArray) => {
   // We need to special case Node.js' Buffers, which report to be Uint8Array
+  // @ts-ignore
   if (typeof Buffer === 'function' && array instanceof Buffer) {
     return 'Buffer'
   }
@@ -11,7 +24,7 @@ const getArrayName = array => {
   return array.constructor.name
 }
 
-export default function inspectTypedArray(array, options) {
+export default function inspectTypedArray(array: TypedArray, options: Options): string {
   const name = getArrayName(array)
   options.truncate -= name.length + 4
   // Object.keys will always output the Array indices first, so we can slice by
@@ -35,9 +48,9 @@ export default function inspectTypedArray(array, options) {
   let propertyContents = ''
   if (nonIndexProperties.length) {
     propertyContents = inspectList(
-      nonIndexProperties.map(key => [key, array[key]]),
+      nonIndexProperties.map(key => [key, array[key as keyof typeof array]]),
       options,
-      inspectProperty
+      inspectProperty as Inspect
     )
   }
   return `${name}[ ${output}${propertyContents ? `, ${propertyContents}` : ''} ]`
