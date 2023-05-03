@@ -1,4 +1,4 @@
-import inspect from '../src/index.ts'
+import inspect from '../lib/index.js'
 import {expect} from 'chai'
 describe('maps', () => {
   it('returns `Map{}` for empty Maps', () => {

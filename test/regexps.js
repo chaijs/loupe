@@ -1,4 +1,4 @@
-import inspect from '../src/index.ts'
+import inspect from '../lib/index.js'
 import {expect} from 'chai'
 describe('regexps', () => {
   it('returns regexp wrapped in forward slashes', () => {

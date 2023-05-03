@@ -1,4 +1,4 @@
-import inspect from '../src/index.ts'
+import inspect from '../lib/index.js'
 import {expect} from 'chai'
 
 for (const TypedArray of [Uint8Array, Uint16Array, Uint32Array, Uint8ClampedArray]) {

@@ -1,4 +1,4 @@
-import inspect from '../src/index.ts'
+import inspect from '../lib/index.js'
 import {expect} from 'chai'
 describe('arrays', () => {
   it('truncates an array of strings rather than just the strings', () => {
