@@ -1,6 +1,5 @@
-import loupe from '../index.js'
-import pkg from 'chai'
-const { expect } = pkg
+import loupe from '../src/index.ts'
+import {expect} from 'chai'
 
 for (const [suite, inspect] of Object.entries({
   objects: loupe,

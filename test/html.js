@@ -1,6 +1,5 @@
-import inspect from '../index.js'
-import pkg from 'chai'
-const { expect } = pkg
+import inspect from '../src/index.ts'
+import {expect} from 'chai'
 // eslint-disable-next-line id-length
 const h = (name, attributes, ...children) => {
   const container = document.createElement(name)

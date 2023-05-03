@@ -1,5 +1,5 @@
-import { truncate } from './helpers.ts'
-import type { Options } from './types.ts'
+import { truncate } from './helpers.js'
+import type { Options } from './types.js'
 
 const isNaN = Number.isNaN || (i => i !== i) // eslint-disable-line no-self-compare
 export default function inspectNumber(number: number, options: Options): string {

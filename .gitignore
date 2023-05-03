@@ -8,3 +8,4 @@ npm-debug.log
 loupe.test.js
 loupe.js
 .nyc_output/
+lib/

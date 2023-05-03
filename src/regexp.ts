@@ -1,5 +1,5 @@
-import { truncate } from './helpers.ts'
-import type { Options } from './types.ts'
+import { truncate } from './helpers.js'
+import type { Options } from './types.js'
 
 export default function inspectRegExp(value: RegExp, options: Options): string {
   const flags = value.toString().split('/')[2]

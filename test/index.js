@@ -1,5 +1,3 @@
-import 'core-js/stable/index.js'
-
 import './acceptance.js'
 import './arguments.js'
 import './arrays.js'

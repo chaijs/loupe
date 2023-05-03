@@ -1,5 +1,5 @@
-import { inspectList, inspectProperty, truncate } from './helpers.ts'
-import type { Inspect, Options } from './types.ts'
+import { inspectList, inspectProperty, truncate } from './helpers.js'
+import type { Inspect, Options } from './types.js'
 
 const errorKeys = [
   'stack',

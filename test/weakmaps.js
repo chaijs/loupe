@@ -1,6 +1,5 @@
-import inspect from '../index.js'
-import pkg from 'chai'
-const { expect } = pkg
+import inspect from '../src/index.ts'
+import {expect} from 'chai'
 describe('weakmaps', () => {
   it('returns `WeakMap{…}` for WeakMap', () => {
     expect(inspect(new WeakMap())).to.equal('WeakMap{…}')

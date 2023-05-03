@@ -1,5 +1,5 @@
-import { inspectList, truncator } from './helpers.ts'
-import type { Inspect, Options } from './types.ts'
+import { inspectList, truncator } from './helpers.js'
+import type { Inspect, Options } from './types.js'
 
 export function inspectAttribute([key, value]: [unknown, unknown], options: Options) {
   options.truncate -= 3

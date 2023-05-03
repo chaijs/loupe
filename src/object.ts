@@ -1,5 +1,5 @@
-import { inspectList, inspectProperty } from './helpers.ts'
-import type { Inspect, Options } from './types.ts'
+import { inspectList, inspectProperty } from './helpers.js'
+import type { Inspect, Options } from './types.js'
 
 export default function inspectObject(object: object, options: Options): string {
   const properties = Object.getOwnPropertyNames(object)

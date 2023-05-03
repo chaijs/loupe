@@ -1,5 +1,5 @@
-import { inspectList } from './helpers.ts'
-import type { Inspect, Options } from './types.ts'
+import { inspectList } from './helpers.js'
+import type { Inspect, Options } from './types.js'
 
 function inspectMapEntry([key, value]: [unknown, unknown], options: Options): string {
   options.truncate -= 4

@@ -1,5 +1,5 @@
-import { inspectList, inspectProperty } from './helpers.ts'
-import type { Inspect, Options } from './types.ts'
+import { inspectList, inspectProperty } from './helpers.js'
+import type { Inspect, Options } from './types.js'
 
 export default function inspectArray(array: ArrayLike<unknown>, options: Options) {
   // Object.keys will always output the Array indices first, so we can slice by

@@ -1,6 +1,5 @@
-import inspect from '../index.js'
-import pkg from 'chai'
-const { expect } = pkg
+import inspect from '../src/index.ts'
+import {expect} from 'chai'
 describe('errors', () => {
   it('returns `Error` for an empty Error', () => {
     expect(inspect(new Error())).to.equal('Error')

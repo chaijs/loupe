@@ -1,5 +1,5 @@
-import { truncate } from './helpers.ts'
-import type { Options } from './types.ts'
+import { truncate } from './helpers.js'
+import type { Options } from './types.js'
 
 const stringEscapeChars = new RegExp(
   "['\\u0000-\\u001f\\u007f-\\u009f\\u00ad\\u0600-\\u0604\\u070f\\u17b4\\u17b5" +

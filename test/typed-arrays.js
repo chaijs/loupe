@@ -1,6 +1,5 @@
-import inspect from '../index.js'
-import pkg from 'chai'
-const { expect } = pkg
+import inspect from '../src/index.ts'
+import {expect} from 'chai'
 
 for (const TypedArray of [Uint8Array, Uint16Array, Uint32Array, Uint8ClampedArray]) {
   describe('typed arrays', () => {

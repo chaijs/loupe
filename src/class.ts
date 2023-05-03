@@ -1,5 +1,5 @@
-import inspectObject from './object.ts'
-import type { Options } from './types.ts'
+import inspectObject from './object.js'
+import type { Options } from './types.js'
 
 const toStringTag = typeof Symbol !== 'undefined' && Symbol.toStringTag ? Symbol.toStringTag : false
 

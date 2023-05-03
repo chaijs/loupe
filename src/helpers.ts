@@ -1,4 +1,4 @@
-import type { Inspect, Options } from './types.ts'
+import type { Inspect, Options } from './types.js'
 
 const ansiColors = {
   bold: ['1', '22'],

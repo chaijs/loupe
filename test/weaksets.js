@@ -1,6 +1,5 @@
-import inspect from '../index.js'
-import pkg from 'chai'
-const { expect } = pkg
+import inspect from '../src/index.ts'
+import { expect } from 'chai'
 describe('weaksets', () => {
   it('returns `WeakSet{…}` for WeakSet', () => {
     expect(inspect(new WeakSet())).to.equal('WeakSet{…}')

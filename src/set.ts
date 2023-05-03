@@ -1,5 +1,5 @@
-import { inspectList } from './helpers.ts'
-import type { Options } from './types.ts'
+import { inspectList } from './helpers.js'
+import type { Options } from './types.js'
 
 // IE11 doesn't support `Array.from(set)`
 function arrayFromSet(set: Set<unknown>) {

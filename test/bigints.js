@@ -1,6 +1,5 @@
-import inspect from '../index.js'
-import pkg from 'chai'
-const { expect } = pkg
+import inspect from '../src/index.ts'
+import {expect} from 'chai'
 describe('bigints', () => {
   it('returns number as passed in', () => {
     expect(inspect(1n)).to.equal('1n')

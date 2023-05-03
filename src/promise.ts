@@ -1,4 +1,4 @@
-import type { Options } from './types.ts'
+import type { Options } from './types.js'
 type GetPromiseValue = (value: Promise<unknown>, options: Options) => string
 let getPromiseValue: GetPromiseValue = () => 'Promise{…}'
 try {
