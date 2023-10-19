@@ -100,6 +100,9 @@
     "arrowParens": "avoid",
     "bracketSpacing": true
   },
+  "dependencies": {
+    "get-func-name": "^2.0.1"
+  },
   "devDependencies": {
     "@commitlint/cli": "^17.8.0",
     "@commitlint/config-angular": "^17.8.0",
