@@ -1,5 +1,5 @@
 import loupe from '../lib/index.js'
-import {expect} from 'chai'
+import { expect } from 'chai'
 
 for (const [suite, inspect] of Object.entries({
   objects: loupe,

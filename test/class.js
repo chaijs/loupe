@@ -1,5 +1,5 @@
 import inspect from '../lib/index.js'
-import {expect} from 'chai'
+import { expect } from 'chai'
 describe('classes', () => {
   class Foo {}
   it('returns constructor name with object literal notation for an empty class', () => {

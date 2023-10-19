@@ -1,5 +1,5 @@
 import inspect from '../lib/index.js'
-import {expect} from 'chai'
+import { expect } from 'chai'
 describe('sets', () => {
   it('returns `Set{}` for empty sets', () => {
     expect(inspect(new Set())).to.equal('Set{}')

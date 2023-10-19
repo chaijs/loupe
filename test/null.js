@@ -1,5 +1,5 @@
 import inspect from '../lib/index.js'
-import {expect} from 'chai'
+import { expect } from 'chai'
 describe('null', () => {
   it('returns `null`', () => {
     expect(inspect(null)).to.equal('null')

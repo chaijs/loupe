@@ -1,5 +1,5 @@
 import inspect from '../lib/index.js'
-import {expect} from 'chai'
+import { expect } from 'chai'
 describe('weakmaps', () => {
   it('returns `WeakMap{…}` for WeakMap', () => {
     expect(inspect(new WeakMap())).to.equal('WeakMap{…}')

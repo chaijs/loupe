@@ -1,5 +1,5 @@
 import inspect from '../lib/index.js'
-import {expect} from 'chai'
+import { expect } from 'chai'
 describe('errors', () => {
   it('returns `Error` for an empty Error', () => {
     expect(inspect(new Error())).to.equal('Error')

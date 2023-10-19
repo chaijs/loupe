@@ -1,5 +1,5 @@
 import inspect from '../lib/index.js'
-import {expect} from 'chai'
+import { expect } from 'chai'
 describe('regexps', () => {
   it('returns regexp wrapped in forward slashes', () => {
     expect(inspect(/abc/)).to.equal('/abc/')
