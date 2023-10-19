@@ -1,5 +1,5 @@
 import inspect from '../lib/index.js'
-import {expect} from 'chai'
+import { expect } from 'chai'
 describe('arrays', () => {
   it('returns `[]` for empty arrays', () => {
     expect(inspect([])).to.equal('[]')

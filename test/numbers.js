@@ -1,5 +1,5 @@
 import inspect from '../lib/index.js'
-import {expect} from 'chai'
+import { expect } from 'chai'
 describe('numbers', () => {
   it('returns number as passed in', () => {
     expect(inspect(3.141)).to.equal('3.141')

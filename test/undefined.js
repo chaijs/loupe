@@ -1,5 +1,5 @@
 import inspect from '../lib/index.js'
-import {expect} from 'chai'
+import { expect } from 'chai'
 describe('undefined', () => {
   it('returns `undefined`', () => {
     expect(inspect(undefined)).to.equal('undefined')

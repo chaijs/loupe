@@ -1,5 +1,5 @@
 import inspect from '../lib/index.js'
-import {expect} from 'chai'
+import { expect } from 'chai'
 describe('maps', () => {
   it('returns `Map{}` for empty Maps', () => {
     expect(inspect(new Map())).to.equal('Map{}')

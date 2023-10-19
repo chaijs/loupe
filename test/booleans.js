@@ -1,5 +1,5 @@
 import inspect from '../lib/index.js'
-import {expect} from 'chai'
+import { expect } from 'chai'
 describe('booleans', () => {
   it('returns `false` for false', () => {
     expect(inspect(false)).to.equal('false')

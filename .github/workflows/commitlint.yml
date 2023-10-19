@@ -7,7 +7,11 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - uses: wagoid/commitlint-github-action@v1
+      - uses: actions/setup-node@v3
+      - name: install dependencies
+        run: npm install
+      - name: Validate PR commits with commitlint
+        run: npx commitlint --extends angular --from ${{ github.event.pull_request.head.sha }}~${{ github.event.pull_request.commits }} --to ${{ github.event.pull_request.head.sha }} --verbose

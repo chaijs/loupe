@@ -1,5 +1,5 @@
 import inspect from '../lib/index.js'
-import {expect} from 'chai'
+import { expect } from 'chai'
 describe('date', () => {
   it('returns date in iso format', () => {
     expect(inspect(new Date(1475318637123))).to.equal('2016-10-01T10:43:57.123Z')

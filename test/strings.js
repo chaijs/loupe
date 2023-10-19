@@ -1,5 +1,5 @@
 import inspect from '../lib/index.js'
-import {expect} from 'chai'
+import { expect } from 'chai'
 describe('strings', () => {
   it('returns string wrapped in quotes', () => {
     expect(inspect('abc')).to.equal("'abc'")
