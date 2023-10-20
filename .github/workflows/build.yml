@@ -13,17 +13,10 @@ jobs:
     steps:
     - name: Checkout the project
       uses: actions/checkout@v2
-    - name: Cache node modules
-      uses: actions/cache@v1
-      with:
-        path: ~/.npm
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-node-
-    - name: Use Node.js 12
+    - name: Use Node.js 18
       uses: actions/setup-node@v1
       with:
-        node-version: 12.x
+        node-version: 18.x
     - name: Install dependencies
       run: npm i
     - name: Run lint step
@@ -35,21 +28,14 @@ jobs:
     strategy:
       matrix:
         node-version:
-        - 10.x # to be removed 2021-04-01
-        - 12.x # to be removed 2022-04-30
-        - x.x.x # safety net; don't remove
+        - 16.x # to be removed 2023-09-11
+        - 18.x # to be removed 2025-04-30
+        - 20.x # to be removed 2026-04-30
     steps:
     - name: Checkout the project
-      uses: actions/checkout@v2
-    - name: Cache node modules
-      uses: actions/cache@v1
-      with:
-        path: ~/.npm
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-node-
+      uses: actions/checkout@v4
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
     - name: Install dependencies
@@ -63,35 +49,17 @@ jobs:
     steps:
     - name: Checkout the project
       uses: actions/checkout@v2
-    - name: Cache node modules
-      uses: actions/cache@v1
-      with:
-        path: ~/.npm
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-node-
-    - name: Use Node.js 12
+    - name: Use Node.js 18
       uses: actions/setup-node@v1
       with:
-        node-version: 12.x
+        node-version: 18.x
     - name: Install dependencies
       run: npm i
-    - name: Setup Headless Environment
-      run: sudo apt-get install xvfb
     - name: Run Node.js Tests
-      run: xvfb-run --auto-servernum npm run test:browser -- --browsers Chrome,Firefox
+      run: npm run test:browser
     - name: Upload coverage
       if: success()
       uses: codecov/codecov-action@v1
-    - name: Cleanup Headless Environment
-      run: |
-        xvfb_pids=`ps aux | grep tmp/xvfb-run | grep -v grep | awk '{print $2}'`
-        if [ "$xvfb_pids" != "" ]; then
-          echo "Killing the following xvfb processes: $xvfb_pids"
-          sudo kill $xvfb_pids
-        else
-          echo "No xvfb processes to kill"
-        fi
 
   test-windows-browsers:
     name: Test on Windows Firefox, Chrome & Edge
@@ -99,21 +67,14 @@ jobs:
     steps:
     - name: Checkout the project
       uses: actions/checkout@v2
-    - name: Cache node modules
-      uses: actions/cache@v1
-      with:
-        path: $APP_DATA/.npm
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-node-
-    - name: Use Node.js 12
+    - name: Use Node.js 18
       uses: actions/setup-node@v1
       with:
-        node-version: 12.x
+        node-version: 18.x
     - name: Install dependencies
       run: npm i
     - name: Run Node.js Tests
-      run: npm run test:browser -- --browsers Chrome,Firefox,IE
+      run: npm run test:browser
 
   release:
     name: Publish a Release
@@ -123,17 +84,10 @@ jobs:
     steps:
     - name: Checkout the project
       uses: actions/checkout@v2
-    - name: Cache node modules
-      uses: actions/cache@v1
-      with:
-        path: ~/.npm
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-node-
-    - name: Use Node.js 12
+    - name: Use Node.js 18
       uses: actions/setup-node@v1
       with:
-        node-version: 12.x
+        node-version: 18.x
     - name: Install dependencies
       run: npm i
     - name: Run Semantic Release

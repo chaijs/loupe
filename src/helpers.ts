@@ -1,3 +1,5 @@
+import type { Inspect, Options } from './types.js'
+
 const ansiColors = {
   bold: ['1', '22'],
   dim: ['2', '22'],
@@ -28,9 +30,9 @@ const ansiColors = {
   brightwhite: ['37;1', '39'],
 
   grey: ['90', '39'],
-}
+} as const
 
-const styles = {
+const styles: Record<string, keyof typeof ansiColors> = {
   special: 'cyan',
   number: 'yellow',
   bigint: 'yellow',
@@ -41,31 +43,37 @@ const styles = {
   symbol: 'green',
   date: 'magenta',
   regexp: 'red',
-}
+} as const
 
 export const truncator = '…'
 
-function colorise(value, styleType) {
-  const color = ansiColors[styles[styleType]] || ansiColors[styleType]
+type AnsiValue = typeof ansiColors[keyof typeof ansiColors]
+
+function colorise<S extends string>(value: S, styleType: string): string {
+  const color: AnsiValue | undefined =
+    ansiColors[styles[styleType]] || ansiColors[styleType as keyof typeof ansiColors] || ''
   if (!color) {
-    return String(value)
+    return String(value) as S
   }
-  return `\u001b[${color[0]}m${String(value)}\u001b[${color[1]}m`
+  return `\u001b[${color[0]}m${String(value) as S}\u001b[${color[1]}m`
 }
 
-export function normaliseOptions({
-  showHidden = false,
-  depth = 2,
-  colors = false,
-  customInspect = true,
-  showProxy = false,
-  maxArrayLength = Infinity,
-  breakLength = Infinity,
-  seen = [],
-  // eslint-disable-next-line no-shadow
-  truncate = Infinity,
-  stylize = String,
-} = {}) {
+export function normaliseOptions(
+  {
+    showHidden = false,
+    depth = 2,
+    colors = false,
+    customInspect = true,
+    showProxy = false,
+    maxArrayLength = Infinity,
+    breakLength = Infinity,
+    seen = [],
+    // eslint-disable-next-line no-shadow
+    truncate = Infinity,
+    stylize = String,
+  }: Partial<Options> = {},
+  inspect: Inspect
+): Options {
   const options = {
     showHidden: Boolean(showHidden),
     depth: Number(depth),
@@ -76,6 +84,7 @@ export function normaliseOptions({
     breakLength: Number(breakLength),
     truncate: Number(truncate),
     seen,
+    inspect,
     stylize,
   }
   if (options.colors) {
@@ -84,7 +93,7 @@ export function normaliseOptions({
   return options
 }
 
-export function truncate(string, length, tail = truncator) {
+export function truncate(string: string | number, length: number, tail: typeof truncator = truncator) {
   string = String(string)
   const tailLength = tail.length
   const stringLength = string.length
@@ -98,7 +107,12 @@ export function truncate(string, length, tail = truncator) {
 }
 
 // eslint-disable-next-line complexity
-export function inspectList(list, options, inspectItem, separator = ', ') {
+export function inspectList(
+  list: ArrayLike<unknown>,
+  options: Options,
+  inspectItem?: Inspect,
+  separator = ', '
+): string {
   inspectItem = inspectItem || options.inspect
   const size = list.length
   if (size === 0) return ''
@@ -154,7 +168,7 @@ export function inspectList(list, options, inspectItem, separator = ', ') {
   return `${output}${truncated}`
 }
 
-function quoteComplexKey(key) {
+function quoteComplexKey(key: string): string {
   if (key.match(/^[a-zA-Z_][a-zA-Z_0-9]*$/)) {
     return key
   }
@@ -164,14 +178,14 @@ function quoteComplexKey(key) {
     .replace(/(^"|"$)/g, "'")
 }
 
-export function inspectProperty([key, value], options) {
+export function inspectProperty([key, value]: [unknown, unknown], options: Options): string {
   options.truncate -= 2
   if (typeof key === 'string') {
     key = quoteComplexKey(key)
   } else if (typeof key !== 'number') {
     key = `[${options.inspect(key, options)}]`
   }
-  options.truncate -= key.length
+  options.truncate -= (key as string).length
   value = options.inspect(value, options)
   return `${key}: ${value}`
 }

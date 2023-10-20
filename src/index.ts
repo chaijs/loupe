@@ -4,69 +4,47 @@
  * MIT Licensed
  */
 
-import inspectArray from './lib/array'
-import inspectTypedArray from './lib/typedarray'
-import inspectDate from './lib/date'
-import inspectFunction from './lib/function'
-import inspectMap from './lib/map'
-import inspectNumber from './lib/number'
-import inspectBigInt from './lib/bigint'
-import inspectRegExp from './lib/regexp'
-import inspectSet from './lib/set'
-import inspectString from './lib/string'
-import inspectSymbol from './lib/symbol'
-import inspectPromise from './lib/promise'
-import inspectClass from './lib/class'
-import inspectObject from './lib/object'
-import inspectArguments from './lib/arguments'
-import inspectError from './lib/error'
-import inspectHTMLElement, { inspectHTMLCollection } from './lib/html'
+import inspectArray from './array.js'
+import inspectTypedArray from './typedarray.js'
+import inspectDate from './date.js'
+import inspectFunction from './function.js'
+import inspectMap from './map.js'
+import inspectNumber from './number.js'
+import inspectBigInt from './bigint.js'
+import inspectRegExp from './regexp.js'
+import inspectSet from './set.js'
+import inspectString from './string.js'
+import inspectSymbol from './symbol.js'
+import inspectPromise from './promise.js'
+import inspectClass from './class.js'
+import inspectObject from './object.js'
+import inspectArguments from './arguments.js'
+import inspectError from './error.js'
+import inspectHTMLElement, { inspectHTMLCollection } from './html.js'
 
-import { normaliseOptions } from './lib/helpers'
+import { normaliseOptions } from './helpers.js'
+import type { Inspect, Options } from './types.js'
 
 const symbolsSupported = typeof Symbol === 'function' && typeof Symbol.for === 'function'
 const chaiInspect = symbolsSupported ? Symbol.for('chai/inspect') : '@@chai/inspect'
-let nodeInspect = false
+let nodeInspect: false | symbol = false
 try {
   // eslint-disable-next-line global-require
+  // @ts-ignore
   const nodeUtil = require('util')
   nodeInspect = nodeUtil.inspect ? nodeUtil.inspect.custom : false
 } catch (noNodeInspect) {
   nodeInspect = false
 }
 
-function FakeMap() {
-  // eslint-disable-next-line prefer-template
-  this.key = 'chai/loupe__' + Math.random() + Date.now()
-}
-FakeMap.prototype = {
-  // eslint-disable-next-line object-shorthand
-  get: function get(key) {
-    return key[this.key]
-  },
-  // eslint-disable-next-line object-shorthand
-  has: function has(key) {
-    return this.key in key
-  },
-  // eslint-disable-next-line object-shorthand
-  set: function set(key, value) {
-    if (Object.isExtensible(key)) {
-      Object.defineProperty(key, this.key, {
-        // eslint-disable-next-line object-shorthand
-        value: value,
-        configurable: true,
-      })
-    }
-  },
-}
-const constructorMap = new (typeof WeakMap === 'function' ? WeakMap : FakeMap)()
-const stringTagMap = {}
+const constructorMap = new WeakMap<Function, Inspect>()
+const stringTagMap: Record<string, Inspect> = {}
 const baseTypesMap = {
-  undefined: (value, options) => options.stylize('undefined', 'undefined'),
-  null: (value, options) => options.stylize(null, 'null'),
+  undefined: (value: undefined, options: Options) => options.stylize('undefined', 'undefined'),
+  null: (value: null, options: Options) => options.stylize('null', 'null'),
 
-  boolean: (value, options) => options.stylize(value, 'boolean'),
-  Boolean: (value, options) => options.stylize(value, 'boolean'),
+  boolean: (value: boolean, options: Options) => options.stylize(String(value), 'boolean'),
+  Boolean: (value: Boolean, options: Options) => options.stylize(String(value), 'boolean'),
 
   number: inspectNumber,
   Number: inspectNumber,
@@ -92,8 +70,8 @@ const baseTypesMap = {
   Promise: inspectPromise,
 
   // WeakSet, WeakMap are totally opaque to us
-  WeakSet: (value, options) => options.stylize('WeakSet{…}', 'special'),
-  WeakMap: (value, options) => options.stylize('WeakMap{…}', 'special'),
+  WeakSet: (value: WeakSet<any>, options: Options) => options.stylize('WeakSet{…}', 'special'),
+  WeakMap: (value: WeakMap<any, unknown>, options: Options) => options.stylize('WeakMap{…}', 'special'),
 
   Arguments: inspectArguments,
   Int8Array: inspectTypedArray,
@@ -114,16 +92,16 @@ const baseTypesMap = {
 
   HTMLCollection: inspectHTMLCollection,
   NodeList: inspectHTMLCollection,
-}
+} as const
 
 // eslint-disable-next-line complexity
-const inspectCustom = (value, options, type) => {
-  if (chaiInspect in value && typeof value[chaiInspect] === 'function') {
-    return value[chaiInspect](options)
+const inspectCustom = (value: object, options: Options, type: string): string => {
+  if (chaiInspect in value && typeof (value as any)[chaiInspect] === 'function') {
+    return ((value as any)[chaiInspect] as Function)(options)
   }
 
-  if (nodeInspect && nodeInspect in value && typeof value[nodeInspect] === 'function') {
-    return value[nodeInspect](options.depth, options)
+  if (nodeInspect && nodeInspect in value && typeof (value as any)[nodeInspect] === 'function') {
+    return ((value as any)[nodeInspect] as Function)(options.depth, options)
   }
 
   if ('inspect' in value && typeof value.inspect === 'function') {
@@ -131,7 +109,7 @@ const inspectCustom = (value, options, type) => {
   }
 
   if ('constructor' in value && constructorMap.has(value.constructor)) {
-    return constructorMap.get(value.constructor)(value, options)
+    return constructorMap.get(value.constructor)!(value, options)
   }
 
   if (stringTagMap[type]) {
@@ -144,9 +122,8 @@ const inspectCustom = (value, options, type) => {
 const toString = Object.prototype.toString
 
 // eslint-disable-next-line complexity
-export function inspect(value, options) {
-  options = normaliseOptions(options)
-  options.inspect = inspect
+export function inspect(value: unknown, opts: Partial<Options> = {}): string {
+  const options = normaliseOptions(opts, inspect)
   const { customInspect } = options
   let type = value === null ? 'null' : typeof value
   if (type === 'object') {
@@ -154,8 +131,8 @@ export function inspect(value, options) {
   }
 
   // If it is a base value that we already support, then use Loupe's inspector
-  if (baseTypesMap[type]) {
-    return baseTypesMap[type](value, options)
+  if (type in baseTypesMap) {
+    return (baseTypesMap[type as keyof typeof baseTypesMap] as Inspect)(value, options)
   }
 
   // If `options.customInspect` is set to true then try to use the custom inspector
@@ -170,35 +147,35 @@ export function inspect(value, options) {
   const proto = value ? Object.getPrototypeOf(value) : false
   // If it's a plain Object then use Loupe's inspector
   if (proto === Object.prototype || proto === null) {
-    return inspectObject(value, options)
+    return inspectObject(value as object, options)
   }
 
   // Specifically account for HTMLElements
-  // eslint-disable-next-line no-undef
+  // @ts-ignore
   if (value && typeof HTMLElement === 'function' && value instanceof HTMLElement) {
     return inspectHTMLElement(value, options)
   }
 
-  if ('constructor' in value) {
+  if ('constructor' in (value as object)) {
     // If it is a class, inspect it like an object but add the constructor name
-    if (value.constructor !== Object) {
-      return inspectClass(value, options)
+    if ((value as object).constructor !== Object) {
+      return inspectClass(value as { new (...args: any[]): unknown }, options)
     }
 
     // If it is an object with an anonymous prototype, display it as an object.
-    return inspectObject(value, options)
+    return inspectObject(value as object, options)
   }
 
   // last chance to check if it's an object
   if (value === Object(value)) {
-    return inspectObject(value, options)
+    return inspectObject(value as object, options)
   }
 
   // We have run out of options! Just stringify the value
-  return options.stylize(String(value), type)
+  return (options as Options).stylize(String(value), type)
 }
 
-export function registerConstructor(constructor, inspector) {
+export function registerConstructor(constructor: Function, inspector: Inspect) {
   if (constructorMap.has(constructor)) {
     return false
   }
@@ -206,7 +183,7 @@ export function registerConstructor(constructor, inspector) {
   return true
 }
 
-export function registerStringTag(stringTag, inspector) {
+export function registerStringTag(stringTag: string, inspector: Inspect) {
   if (stringTag in stringTagMap) {
     return false
   }

@@ -1,4 +1,4 @@
-import inspect from '../index'
+import inspect from '../lib/index.js'
 import { expect } from 'chai'
 describe('bigints', () => {
   it('returns number as passed in', () => {

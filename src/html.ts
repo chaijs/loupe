@@ -1,19 +1,22 @@
-import { truncator, inspectList } from './helpers'
+import { inspectList, truncator } from './helpers.js'
+import type { Inspect, Options } from './types.js'
 
-export function inspectAttribute([key, value], options) {
+export function inspectAttribute([key, value]: [unknown, unknown], options: Options) {
   options.truncate -= 3
   if (!value) {
-    return `${options.stylize(key, 'yellow')}`
+    return `${options.stylize(String(key), 'yellow')}`
   }
-  return `${options.stylize(key, 'yellow')}=${options.stylize(`"${value}"`, 'string')}`
+  return `${options.stylize(String(key), 'yellow')}=${options.stylize(`"${value}"`, 'string')}`
 }
 
-export function inspectHTMLCollection(collection, options) {
+// @ts-ignore (Deno doesn't have Element)
+export function inspectHTMLCollection(collection: ArrayLike<Element>, options: Options): string {
   // eslint-disable-next-line no-use-before-define
-  return inspectList(collection, options, inspectHTML, '\n')
+  return inspectList(collection, options, inspectHTML as Inspect, '\n')
 }
 
-export default function inspectHTML(element, options) {
+// @ts-ignore (Deno doesn't have Element)
+export default function inspectHTML(element: Element, options: Options): string {
   const properties = element.getAttributeNames()
   const name = element.tagName.toLowerCase()
   const head = options.stylize(`<${name}`, 'special')
@@ -24,9 +27,9 @@ export default function inspectHTML(element, options) {
   if (properties.length > 0) {
     propertyContents += ' '
     propertyContents += inspectList(
-      properties.map(key => [key, element.getAttribute(key)]),
+      properties.map((key: string) => [key, element.getAttribute(key)]),
       options,
-      inspectAttribute,
+      inspectAttribute as Inspect,
       ' '
     )
   }

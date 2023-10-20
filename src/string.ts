@@ -1,4 +1,5 @@
-import { truncate } from './helpers'
+import { truncate } from './helpers.js'
+import type { Options } from './types.js'
 
 const stringEscapeChars = new RegExp(
   "['\\u0000-\\u001f\\u007f-\\u009f\\u00ad\\u0600-\\u0604\\u070f\\u17b4\\u17b5" +
@@ -14,14 +15,18 @@ const escapeCharacters = {
   '\r': '\\r',
   "'": "\\'",
   '\\': '\\\\',
-}
+} as const
+
 const hex = 16
 const unicodeLength = 4
-function escape(char) {
-  return escapeCharacters[char] || `\\u${`0000${char.charCodeAt(0).toString(hex)}`.slice(-unicodeLength)}`
+function escape(char: string): string {
+  return (
+    escapeCharacters[char as keyof typeof escapeCharacters] ||
+    `\\u${`0000${char.charCodeAt(0).toString(hex)}`.slice(-unicodeLength)}`
+  )
 }
 
-export default function inspectString(string, options) {
+export default function inspectString(string: string, options: Options): string {
   if (stringEscapeChars.test(string)) {
     string = string.replace(stringEscapeChars, escape)
   }

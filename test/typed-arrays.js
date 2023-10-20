@@ -1,13 +1,7 @@
-import getFuncName from 'get-func-name'
-import inspect from '../index'
+import inspect from '../lib/index.js'
 import { expect } from 'chai'
 
 for (const TypedArray of [Uint8Array, Uint16Array, Uint32Array, Uint8ClampedArray]) {
-  // IE11 doesn't support `TypedArray.name`
-  if (typeof TypedArray.name === 'undefined') {
-    TypedArray.name = getFuncName(TypedArray)
-  }
-
   describe('typed arrays', () => {
     it(`returns \`${TypedArray.name}[]\` for empty arrays`, () => {
       expect(inspect(new TypedArray())).to.equal(`${TypedArray.name}[]`)
