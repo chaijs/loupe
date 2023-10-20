@@ -25,7 +25,6 @@
   ],
   "scripts": {
     "bench": "node bench",
-    "commit-msg": "commitlint -x angular",
     "lint": "eslint --ignore-path .gitignore .",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "test": "npm run test:node && npm run test:browser",
@@ -104,15 +103,12 @@
     "get-func-name": "^2.0.1"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.8.0",
-    "@commitlint/config-angular": "^17.8.0",
     "@web/dev-server-esbuild": "^0.4.2",
     "@web/test-runner": "^0.17.2",
     "@web/test-runner-playwright": "^0.10.1",
     "benchmark": "^2.1.4",
     "chai": "^5.0.0-alpha.0",
     "codecov": "^3.8.1",
-    "commitlint-config-angular": "^11.0.0",
     "core-js": "^3.8.3",
     "cross-env": "^7.0.3",
     "esbuild": "^0.19.5",
