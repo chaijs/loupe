@@ -12,7 +12,7 @@ const errorKeys = [
   'columnNumber',
   'number',
   'description',
-  'sourceURL'
+  'sourceURL' // A property that seems to be only in Safari
 ]
 
 export default function inspectObject(error: Error, options: Options) {
