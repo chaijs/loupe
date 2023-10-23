@@ -12,6 +12,7 @@ const errorKeys = [
   'columnNumber',
   'number',
   'description',
+  'sourceURL'
 ]
 
 export default function inspectObject(error: Error, options: Options) {
