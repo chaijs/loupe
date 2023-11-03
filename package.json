@@ -28,7 +28,7 @@
     "lint": "eslint --ignore-path .gitignore .",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "test": "npm run test:node && npm run test:browser",
-    "pretest:browser": "npm run build",
+    "pretest:browser": "npx playwright install && npm run build",
     "test:browser": "wtr",
     "pretest:node": "npm run build",
     "test:node": "mocha",
@@ -36,8 +36,7 @@
     "build:lib": "esbuild \"src/*.ts\" --outdir=lib --format=esm",
     "build:esm-bundle": "esbuild --bundle src/index.ts --outfile=loupe.js --format=esm",
     "build:cjs-bundle": "esbuild --bundle src/index.ts --outfile=loupe.js --format=cjs",
-    "upload-coverage": "codecov",
-    "postinstall": "npx playwright install"
+    "upload-coverage": "codecov"
   },
   "eslintConfig": {
     "root": true,
