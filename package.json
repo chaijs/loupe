@@ -33,7 +33,7 @@
     "pretest:node": "npm run build",
     "test:node": "mocha",
     "build": "npm run build:lib && npm run build:esm-bundle && npm run build:cjs-bundle",
-    "build:lib": "esbuild \"src/*.ts\" --outdir=lib --format=esm",
+    "build:lib": "tsc",
     "build:esm-bundle": "esbuild --bundle src/index.ts --outfile=loupe.js --format=esm",
     "build:cjs-bundle": "esbuild --bundle src/index.ts --outfile=loupe.js --format=cjs",
     "upload-coverage": "codecov"
