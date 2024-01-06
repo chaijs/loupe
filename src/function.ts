@@ -1,10 +1,14 @@
 import { truncate } from './helpers.js'
 import type { Options } from './types.js'
 
-export default function inspectFunction(func: Function, options: Options) {
+type ToStringable = Function & {[Symbol.toStringTag]: string};
+
+export default function inspectFunction(func: ToStringable, options: Options) {
+  const functionType = func[Symbol.toStringTag] || 'Function'
+
   const name = func.name
   if (!name) {
-    return options.stylize('[Function]', 'special')
+    return options.stylize(`[${functionType}]`, 'special')
   }
-  return options.stylize(`[Function ${truncate(name, options.truncate - 11)}]`, 'special')
+  return options.stylize(`[${functionType} ${truncate(name, options.truncate - 11)}]`, 'special')
 }
