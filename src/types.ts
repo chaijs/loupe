@@ -9,7 +9,7 @@ export interface Options {
   maxArrayLength: number
   breakLength: number
   truncate: number
-  seen: unknown[]
+  seen: Set<unknown>
   inspect: Inspect
   stylize: (value: string, styleType: string) => string
 }

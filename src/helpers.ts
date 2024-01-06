@@ -67,7 +67,7 @@ export function normaliseOptions(
     showProxy = false,
     maxArrayLength = Infinity,
     breakLength = Infinity,
-    seen = [],
+    seen = new Set(),
     // eslint-disable-next-line no-shadow
     truncate = Infinity,
     stylize = String,

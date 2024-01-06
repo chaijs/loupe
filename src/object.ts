@@ -8,11 +8,11 @@ export default function inspectObject(object: object, options: Options): string 
     return '{}'
   }
   options.truncate -= 4
-  options.seen = options.seen || []
-  if (options.seen.indexOf(object) >= 0) {
+  options.seen = options.seen || new Map()
+  if (options.seen.has(object)) {
     return '[Circular]'
   }
-  options.seen.push(object)
+  options.seen.add(object)
   const propertyContents = inspectList(
     properties.map(key => [key, object[key as keyof typeof object]]),
     options,
@@ -23,7 +23,7 @@ export default function inspectObject(object: object, options: Options): string 
     options,
     inspectProperty as Inspect
   )
-  options.seen.pop()
+  options.seen.delete(object)
   let sep = ''
   if (propertyContents && symbolContents) {
     sep = ', '
