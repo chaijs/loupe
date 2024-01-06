@@ -1,13 +1,10 @@
 import { truncate } from './helpers.js'
 import type { Options } from './types.js'
 
-export default function inspectFunction(func: Function, options: Options) {
-  let functionType = 'Function'
-  // @ts-ignore
-  const stringTag = func[Symbol.toStringTag];
-  if (typeof stringTag === 'string') {
-    functionType = stringTag;
-  }
+type ToStringable = Function & {[Symbol.toStringTag]: string};
+
+export default function inspectFunction(func: ToStringable, options: Options) {
+  const functionType = func[Symbol.toStringTag] || 'Function'
 
   const name = func.name
   if (!name) {
