@@ -65,3 +65,33 @@ describe('functions', () => {
     })
   })
 })
+
+describe('async functions', () => {
+  it('returns the functions name wrapped in `[AsyncFunction ]`', () => {
+    expect(inspect(async function foo() {})).to.equal('[AsyncFunction foo]')
+  })
+
+  it('returns the `[AsyncFunction]` if given anonymous function', () => {
+    expect(inspect(async function () {})).to.equal('[AsyncFunction]')
+  })
+})
+
+describe('generator functions', () => {
+  it('returns the functions name wrapped in `[GeneratorFunction ]`', () => {
+    expect(inspect(function* foo() {})).to.equal('[GeneratorFunction foo]')
+  })
+
+  it('returns the `[GeneratorFunction]` if given a generator function', () => {
+    expect(inspect(function* () {})).to.equal('[GeneratorFunction]')
+  })
+})
+
+describe('async generator functions', () => {
+  it('returns the functions name wrapped in `[AsyncGeneratorFunction ]`', () => {
+    expect(inspect(async function* foo() {})).to.equal('[AsyncGeneratorFunction foo]')
+  })
+
+  it('returns the `[AsyncGeneratorFunction]` if given a async generator function', () => {
+    expect(inspect(async function* () {})).to.equal('[AsyncGeneratorFunction]')
+  })
+})

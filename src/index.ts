@@ -129,7 +129,7 @@ export function inspect(value: unknown, opts: Partial<Options> = {}): string {
   if (type === 'object') {
     type = toString.call(value).slice(8, -1)
   }
-
+  
   // If it is a base value that we already support, then use Loupe's inspector
   if (type in baseTypesMap) {
     return (baseTypesMap[type as keyof typeof baseTypesMap] as Inspect)(value, options)
