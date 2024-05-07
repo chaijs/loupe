@@ -93,6 +93,11 @@ export function normaliseOptions(
   return options
 }
 
+function isHighSurrogate(char: string): boolean {
+  const charCode = char.charCodeAt(0)
+  return charCode >= 0xd800 && charCode <= 0xdbff
+}
+
 export function truncate(string: string | number, length: number, tail: typeof truncator = truncator) {
   string = String(string)
   const tailLength = tail.length
@@ -101,7 +106,11 @@ export function truncate(string: string | number, length: number, tail: typeof t
     return tail
   }
   if (stringLength > length && stringLength > tailLength) {
-    return `${string.slice(0, length - tailLength)}${tail}`
+    let end = length - tailLength
+    if (end > 0 && isHighSurrogate(string[end - 1])) {
+      end = end - 1
+    }
+    return `${string.slice(0, end)}${tail}`
   }
   return string
 }

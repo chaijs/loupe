@@ -59,6 +59,22 @@ describe('strings', () => {
       expect(inspect('foobarbaz', { truncate: 3 })).to.equal("'…'")
     })
 
+    it('truncates strings involving surrogate pairs longer than truncate (7)', () => {
+      expect(inspect('🐱🐱🐱', { truncate: 7 })).to.equal("'🐱🐱…'") // not '🐱🐱\ud83d…'
+    })
+
+    it('truncates strings involving surrogate pairs longer than truncate (6)', () => {
+      expect(inspect('🐱🐱🐱', { truncate: 6 })).to.equal("'🐱…'") // not '🐱\ud83d…'
+    })
+
+    it('truncates strings involving surrogate pairs longer than truncate (5)', () => {
+      expect(inspect('🐱🐱🐱', { truncate: 5 })).to.equal("'🐱…'")
+    })
+
+    it('truncates strings involving graphemes than truncate (5)', () => {
+      expect(inspect('👨‍👩‍👧‍👧', { truncate: 5 })).to.equal("'👨…'") // partial support: valid string for unicode
+    })
+
     it('disregards truncate when it cannot truncate further (2)', () => {
       expect(inspect('foobarbaz', { truncate: 2 })).to.equal("'…'")
     })
