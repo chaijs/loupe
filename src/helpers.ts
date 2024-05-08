@@ -94,8 +94,7 @@ export function normaliseOptions(
 }
 
 function isHighSurrogate(char: string): boolean {
-  const charCode = char.charCodeAt(0)
-  return charCode >= 0xd800 && charCode <= 0xdbff
+  return char >= '\ud800' && char <= '\udbff'
 }
 
 export function truncate(string: string | number, length: number, tail: typeof truncator = truncator) {
