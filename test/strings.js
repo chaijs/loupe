@@ -60,19 +60,22 @@ describe('strings', () => {
     })
 
     it('truncates strings involving surrogate pairs longer than truncate (7)', () => {
-      expect(inspect('🐱🐱🐱', { truncate: 7 })).to.equal("'🐱🐱…'") // not '🐱🐱\ud83d…'
+      // not '🐱🐱\ud83d…' (length 7) but '🐱🐱…' (length 6)
+      expect(inspect('🐱🐱🐱', { truncate: 7 })).to.equal("'🐱🐱…'")
     })
 
     it('truncates strings involving surrogate pairs longer than truncate (6)', () => {
-      expect(inspect('🐱🐱🐱', { truncate: 6 })).to.equal("'🐱…'") // not '🐱\ud83d…'
+      expect(inspect('🐱🐱🐱', { truncate: 6 })).to.equal("'🐱…'")
     })
 
     it('truncates strings involving surrogate pairs longer than truncate (5)', () => {
+      // not '🐱\ud83d…' (length 5) but '🐱…' (length 4)
       expect(inspect('🐱🐱🐱', { truncate: 5 })).to.equal("'🐱…'")
     })
 
     it('truncates strings involving graphemes than truncate (5)', () => {
-      expect(inspect('👨‍👩‍👧‍👧', { truncate: 5 })).to.equal("'👨…'") // partial support: valid string for unicode
+      // partial support: valid string for unicode
+      expect(inspect('👨‍👩‍👧‍👧', { truncate: 5 })).to.equal("'👨…'")
     })
 
     it('disregards truncate when it cannot truncate further (2)', () => {
