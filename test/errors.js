@@ -33,5 +33,19 @@ describe('errors', () => {
       err.message = { code: 404 }
       expect(inspect(err)).to.equal('Error { message: { code: 404 } }')
     })
+
+    it('detects circular references', () => {
+      const err = new Error('message')
+      err.fluff = err
+      expect(inspect(err)).to.equal('Error: message { fluff: [Circular] }')
+    })
+  })
+
+  describe('ignores built in properties', () => {
+    it('does not add property to output', () => {
+      const err = new Error('message')
+      err.cause = new Error('i caused you')
+      expect(inspect(err)).to.equal('Error: message')
+    })
   })
 })

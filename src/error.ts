@@ -12,6 +12,7 @@ const errorKeys = [
   'columnNumber',
   'number',
   'description',
+  'cause',
 ]
 
 export default function inspectObject(error: Error, options: Options) {
@@ -26,6 +27,11 @@ export default function inspectObject(error: Error, options: Options) {
   }
   message = message ? `: ${message}` : ''
   options.truncate -= message.length + 5
+  options.seen = options.seen || []
+  if (options.seen.indexOf(error) >= 0) {
+    return '[Circular]'
+  }
+  options.seen.push(error)
   const propertyContents = inspectList(
     properties.map(key => [key, error[key as keyof typeof error]]),
     options,
