@@ -9,7 +9,7 @@ export default function inspectObject(object: object, options: Options): string 
   }
   options.truncate -= 4
   options.seen = options.seen || []
-  if (options.seen.indexOf(object) >= 0) {
+  if (options.seen.includes(object)) {
     return '[Circular]'
   }
   options.seen.push(object)

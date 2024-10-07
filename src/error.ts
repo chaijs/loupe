@@ -28,7 +28,7 @@ export default function inspectObject(error: Error, options: Options) {
   message = message ? `: ${message}` : ''
   options.truncate -= message.length + 5
   options.seen = options.seen || []
-  if (options.seen.indexOf(error) >= 0) {
+  if (options.seen.includes(error)) {
     return '[Circular]'
   }
   options.seen.push(error)
