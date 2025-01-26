@@ -13,10 +13,10 @@ jobs:
     steps:
       - name: Checkout the project
         uses: actions/checkout@v2
-      - name: Use Node.js 18
+      - name: Use Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: 18.x
+          node-version: 22.x
       - name: Install dependencies
         run: npm i
       - name: Run lint step
@@ -31,6 +31,7 @@ jobs:
           - 18.x # to be removed 2025-04-30
           - 20.x # to be removed 2026-04-30
           - 21.x # to be removed 2024-06-01
+          - 22.x
     steps:
       - name: Checkout the project
         uses: actions/checkout@v4
@@ -49,10 +50,10 @@ jobs:
     steps:
       - name: Checkout the project
         uses: actions/checkout@v2
-      - name: Use Node.js 18
+      - name: Use Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: 18.x
+          node-version: 22.x
       - name: Install dependencies
         run: npm i
       - name: Run Node.js Tests
@@ -67,10 +68,10 @@ jobs:
     steps:
       - name: Checkout the project
         uses: actions/checkout@v2
-      - name: Use Node.js 18
+      - name: Use Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: 18.x
+          node-version: 22.x
       - name: Install dependencies
         run: npm i
       - name: Run Node.js Tests
