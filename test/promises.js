@@ -6,7 +6,7 @@ describe('promises', () => {
   describe('default behaviour', () => {
     beforeEach(function () {
       if (isNode && canInspectPromises) {
-        // eslint-disable-next-line no-invalid-this
+         
         this.skip()
       }
     })
@@ -40,7 +40,7 @@ describe('promises', () => {
   describe('node <= 16', () => {
     beforeEach(function () {
       if (!isNode || !canInspectPromises) {
-        // eslint-disable-next-line no-invalid-this
+         
         this.skip()
       }
     })

@@ -1,7 +1,7 @@
 import inspect from '../lib/index.js'
 import { expect } from 'chai'
 function args() {
-  // eslint-disable-next-line prefer-rest-params
+   
   return arguments
 }
 describe('arguments', () => {
