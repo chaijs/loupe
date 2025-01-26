@@ -5,6 +5,10 @@ describe('maps', () => {
     expect(inspect(new Map())).to.equal('Map{}')
   })
 
+  it('correctly inspects Map with a single entry', () => {
+    expect(inspect(new Map([['a', 1]]))).to.equal("Map{ 'a' => 1 }")
+  })
+
   it('inspects both keys and values', () => {
     expect(
       inspect(

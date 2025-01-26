@@ -19,10 +19,7 @@ function mapToEntries<K, V>(map: Map<K, V>): Array<[K, V]> {
 }
 
 export default function inspectMap(map: Map<unknown, unknown>, options: Options): string {
-  const size = map.size - 1
-  if (size <= 0) {
-    return 'Map{}'
-  }
+  if (map.size === 0) return 'Map{}'
   options.truncate -= 7
   return `Map{ ${inspectList(mapToEntries(map), options, inspectMapEntry as Inspect)} }`
 }
