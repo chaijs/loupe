@@ -1,7 +1,6 @@
 import inspect from '../lib/index.js'
 import { expect } from 'chai'
 describe('symbols', () => {
-   
   it('returns Symbol() for empty Symbol', () => {
     expect(inspect(Symbol())).to.equal('Symbol()')
   })

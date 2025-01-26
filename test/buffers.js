@@ -3,7 +3,6 @@ import { expect } from 'chai'
 describe('buffers', () => {
   beforeEach(function () {
     if (typeof Buffer !== 'function') {
-       
       this.skip()
     }
   })

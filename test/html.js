@@ -1,6 +1,6 @@
 import inspect from '../lib/index.js'
 import { expect } from 'chai'
- 
+
 const h = (name, attributes, ...children) => {
   const container = document.createElement(name)
   for (const key in attributes) {

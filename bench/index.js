@@ -5,7 +5,7 @@ const benches = []
 const mapObjRefA = {}
 const mapObjRefB = {}
 function getArguments() {
-  return arguments  
+  return arguments
 }
 class A {}
 const fixtures = {

@@ -1,7 +1,6 @@
 import inspect from '../lib/index.js'
 import { expect } from 'chai'
 function args() {
-   
   return arguments
 }
 describe('arguments', () => {

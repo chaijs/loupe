@@ -6,7 +6,6 @@ describe('promises', () => {
   describe('default behaviour', () => {
     beforeEach(function () {
       if (isNode && canInspectPromises) {
-         
         this.skip()
       }
     })
@@ -40,7 +39,6 @@ describe('promises', () => {
   describe('node <= 16', () => {
     beforeEach(function () {
       if (!isNode || !canInspectPromises) {
-         
         this.skip()
       }
     })
