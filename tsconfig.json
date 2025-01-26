@@ -13,6 +13,7 @@
     "strict": true,
     "declaration": true,
     "declarationMap": true,
-    "moduleResolution": "bundler"
+    "moduleResolution": "bundler",
+    "skipLibCheck": true
   }
 }
