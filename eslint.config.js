@@ -1,9 +1,14 @@
 import eslintjs from '@eslint/js'
+import prettier from 'eslint-plugin-prettier/recommended'
 
 const { configs: eslintConfigs } = eslintjs
 
 export default [
+  {
+    ignores: ['lib/', 'loupe.js'],
+  },
   eslintConfigs['recommended'],
+  prettier,
   {
     languageOptions: {
       globals: {
@@ -12,7 +17,8 @@ export default [
         document: false,
         window: false,
         global: false,
-      }
+        HTMLElement: false,
+      },
     },
     rules: {
       'no-unused-vars': [
@@ -35,7 +41,7 @@ export default [
         describe: false,
         beforeEach: false,
         it: false,
-      }
+      },
     },
   },
 ]
