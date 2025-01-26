@@ -60,7 +60,7 @@ jobs:
         run: npm run test:browser
       - name: Upload coverage
         if: success()
-        uses: codecov/codecov-action@v1
+        uses: codecov/codecov-action@v5
 
   test-windows-browsers:
     name: Test on Windows Firefox, Chrome & Edge
