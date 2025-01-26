@@ -1,6 +1,6 @@
 import inspect from '../lib/index.js'
 import { expect } from 'chai'
-// eslint-disable-next-line id-length
+ 
 const h = (name, attributes, ...children) => {
   const container = document.createElement(name)
   for (const key in attributes) {

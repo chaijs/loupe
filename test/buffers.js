@@ -3,7 +3,7 @@ import { expect } from 'chai'
 describe('buffers', () => {
   beforeEach(function () {
     if (typeof Buffer !== 'function') {
-      // eslint-disable-next-line no-invalid-this
+       
       this.skip()
     }
   })

@@ -1,4 +1,4 @@
-/* eslint-disable prefer-arrow-callback */
+ 
 import inspect from '../lib/index.js'
 import { expect } from 'chai'
 describe('functions', () => {

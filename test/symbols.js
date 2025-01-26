@@ -1,7 +1,7 @@
 import inspect from '../lib/index.js'
 import { expect } from 'chai'
 describe('symbols', () => {
-  /* eslint-disable */
+   
   it('returns Symbol() for empty Symbol', () => {
     expect(inspect(Symbol())).to.equal('Symbol()')
   })
