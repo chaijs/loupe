@@ -28,7 +28,7 @@
     "lint": "eslint .",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "test": "npm run test:node && npm run test:browser",
-    "pretest:browser": "npx playwright install && npx playwright install-deps && npm run build",
+    "pretest:browser": "npx playwright install-deps && npx playwright install && npm run build",
     "test:browser": "wtr",
     "pretest:node": "npm run build",
     "test:node": "mocha",
