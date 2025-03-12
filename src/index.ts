@@ -91,7 +91,7 @@ const baseTypesMap = {
   Error: inspectError,
 
   HTMLCollection: inspectHTMLCollection,
-  NodeList: inspectHTMLCollection,
+  NodeList: inspectArray,
 } as const
 
 // eslint-disable-next-line complexity
