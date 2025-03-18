@@ -9,10 +9,19 @@ export function inspectAttribute([key, value]: [unknown, unknown], options: Opti
   return `${options.stylize(String(key), 'yellow')}=${options.stylize(`"${value}"`, 'string')}`
 }
 
-// @ts-ignore (Deno doesn't have Element)
-export function inspectHTMLCollection(collection: ArrayLike<Element>, options: Options): string {
-  // eslint-disable-next-line no-use-before-define
-  return inspectList(collection, options, inspectHTML as Inspect, '\n')
+export function inspectNodeCollection(collection: ArrayLike<Node>, options: Options): string {
+  return inspectList(collection, options, inspectNode as Inspect, '\n')
+}
+
+export function inspectNode(node: Node, options: Options): string {
+  switch (node.nodeType) {
+    case 1:
+      return inspectHTML(node as Element, options)
+    case 3:
+      return options.inspect((node as Text).data, options)
+    default:
+      return options.inspect(node, options)
+  }
 }
 
 // @ts-ignore (Deno doesn't have Element)
@@ -35,7 +44,7 @@ export default function inspectHTML(element: Element, options: Options): string 
   }
   options.truncate -= propertyContents.length
   const truncate = options.truncate
-  let children = inspectHTMLCollection(element.children, options)
+  let children = inspectNodeCollection(element.children, options)
   if (children && children.length > truncate) {
     children = `${truncator}(${element.children.length})`
   }

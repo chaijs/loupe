@@ -20,7 +20,7 @@ import inspectClass from './class.js'
 import inspectObject from './object.js'
 import inspectArguments from './arguments.js'
 import inspectError from './error.js'
-import inspectHTMLElement, { inspectHTMLCollection } from './html.js'
+import inspectHTMLElement, { inspectNodeCollection } from './html.js'
 
 import { normaliseOptions } from './helpers.js'
 import type { Inspect, Options } from './types.js'
@@ -90,8 +90,8 @@ const baseTypesMap = {
 
   Error: inspectError,
 
-  HTMLCollection: inspectHTMLCollection,
-  NodeList: inspectHTMLCollection,
+  HTMLCollection: inspectNodeCollection,
+  NodeList: inspectNodeCollection,
 } as const
 
 // eslint-disable-next-line complexity
