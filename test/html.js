@@ -14,7 +14,25 @@ const h = (name, attributes, ...children) => {
 describe('HTMLElement', () => {
   beforeEach(() => {
     if (typeof HTMLElement !== 'function') {
+      class Text {
+        get nodeType() {
+          return 3
+        }
+
+        constructor(data) {
+          this.wholeText = data
+          this.data = data
+        }
+
+        get length() {
+          return this.data.length
+        }
+      }
       class HTMLElement {
+        get nodeType() {
+          return 1
+        }
+
         constructor(tagName) {
           this.tagName = tagName.toUpperCase()
           this.attributes = {}
@@ -37,14 +55,13 @@ describe('HTMLElement', () => {
           return Object.keys(this.attributes)
         }
       }
-      if (typeof global === 'undefined') {
-        window.document.createElement = tagName => new HTMLElement(tagName)
-        window.HTMLElement = HTMLElement
-      } else {
-        global.document = {}
-        global.document.createElement = tagName => new HTMLElement(tagName)
-        global.HTMLElement = HTMLElement
+      if (typeof globalThis.document === 'undefined') {
+        globalThis.document = {}
       }
+      globalThis.document.createElement = tagName => new HTMLElement(tagName)
+      globalThis.document.createTextNode = data => new Text(data)
+      globalThis.HTMLElement = HTMLElement
+      globalThis.Text = Text
     }
   })
 
@@ -143,6 +160,23 @@ describe('HTMLElement', () => {
         '\u001b[36m<div\u001b[39m \u001b[33mid\u001b[39m=\u001b[32m' +
           '"foo"\u001b[39m\u001b[36m>\u001b[39m\u001b[36m</div>\u001b[39m'
       )
+    })
+  })
+
+  describe('HTMLCollection', () => {
+    it('returns html representation of items', () => {
+      const nodes = [h('span'), h('h1')]
+      nodes[Symbol.toStringTag] = 'HTMLCollection'
+      expect(inspect(nodes)).to.equal('<span></span>\n<h1></h1>')
+    })
+  })
+
+  describe('NodeList', () => {
+    it('returns html representation of items', () => {
+      const nodes = [h('h1'), document.createTextNode('bar')]
+      // Becuase we can't create a `NodeList in node
+      nodes[Symbol.toStringTag] = 'NodeList'
+      expect(inspect(nodes)).to.equal("<h1></h1>\n'bar'")
     })
   })
 })
