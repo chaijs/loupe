@@ -72,6 +72,16 @@ describe('objects', () => {
 
     expect(inspect(obj, { customInspect: true })).to.equal("{ sub: { foo: 'bar' } }")
   })
+
+  it('inspect with node-style custom inspect', () => {
+    const obj = {
+      sub: {
+        [Symbol.for('nodejs.util.inspect.custom')]: () => ({ foo: 'bar' }),
+      },
+    }
+
+    expect(inspect(obj, { customInspect: true })).to.equal("{ sub: { foo: 'bar' } }")
+  })
 })
 
 describe('arrays', () => {

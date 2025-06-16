@@ -27,15 +27,7 @@ import type { Inspect, Options } from './types.js'
 
 const symbolsSupported = typeof Symbol === 'function' && typeof Symbol.for === 'function'
 const chaiInspect = symbolsSupported ? Symbol.for('chai/inspect') : '@@chai/inspect'
-let nodeInspect: false | symbol = false
-try {
-  // eslint-disable-next-line global-require
-  // @ts-ignore
-  const nodeUtil = require('util')
-  nodeInspect = nodeUtil.inspect ? nodeUtil.inspect.custom : false
-} catch (noNodeInspect) {
-  nodeInspect = false
-}
+const nodeInspect = Symbol.for('nodejs.util.inspect.custom');
 
 const constructorMap = new WeakMap<Function, Inspect>()
 const stringTagMap: Record<string, Inspect> = {}
@@ -100,7 +92,7 @@ const inspectCustom = (value: object, options: Options, type: string): string =>
     return ((value as any)[chaiInspect] as Function)(options)
   }
 
-  if (nodeInspect && nodeInspect in value && typeof (value as any)[nodeInspect] === 'function') {
+  if (nodeInspect in value && typeof (value as any)[nodeInspect] === 'function') {
     return ((value as any)[nodeInspect] as Function)(options.depth, options)
   }
 
