@@ -87,13 +87,13 @@ const baseTypesMap = {
 } as const
 
 // eslint-disable-next-line complexity
-const inspectCustom = (value: object, options: Options, type: string): string => {
+const inspectCustom = (value: object, options: Options, type: string, inspectFn: typeof inspect): string => {
   if (chaiInspect in value && typeof (value as any)[chaiInspect] === 'function') {
     return ((value as any)[chaiInspect] as Function)(options)
   }
 
   if (nodeInspect in value && typeof (value as any)[nodeInspect] === 'function') {
-    return ((value as any)[nodeInspect] as Function)(options.depth, options)
+    return ((value as any)[nodeInspect] as Function)(options.depth, options, inspectFn)
   }
 
   if ('inspect' in value && typeof value.inspect === 'function') {
@@ -129,7 +129,7 @@ export function inspect(value: unknown, opts: Partial<Options> = {}): string {
 
   // If `options.customInspect` is set to true then try to use the custom inspector
   if (customInspect && value) {
-    const output = inspectCustom(value, options, type)
+    const output = inspectCustom(value, options, type, inspect)
     if (output) {
       if (typeof output === 'string') return output
       return inspect(output, options)

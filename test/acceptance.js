@@ -76,11 +76,12 @@ describe('objects', () => {
   it('inspect with node-style custom inspect', () => {
     const obj = {
       sub: {
-        [Symbol.for('nodejs.util.inspect.custom')]: () => ({ foo: 'bar' }),
+        [Symbol.for('nodejs.util.inspect.custom')]: (depth, options, inspect) =>
+          `Foo { depth=${depth}, foo=${inspect(['bar', 1])} } }`,
       },
     }
 
-    expect(inspect(obj, { customInspect: true })).to.equal("{ sub: { foo: 'bar' } }")
+    expect(inspect(obj, { customInspect: true })).to.equal("{ sub: Foo { depth=2, foo=[ 'bar', 1 ] } } }")
   })
 })
 
