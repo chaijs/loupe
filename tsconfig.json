@@ -12,7 +12,6 @@
     "lib": ["es2022", "dom"],
     "strict": true,
     "declaration": true,
-    "declarationMap": true,
     "moduleResolution": "bundler",
     "skipLibCheck": true
   }
