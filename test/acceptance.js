@@ -19,37 +19,32 @@ describe('objects', () => {
     expect(inspect({ foo: 1, [Symbol('foo')]: 1 })).to.equal('{ foo: 1, [Symbol(foo)]: 1 }')
   })
 
-  it('does not use custom inspect functions if `customInspect` is turned off', () => {
+  it('does not treat inspect members as inspect functions', () => {
     const obj = {
       inspect: () => 1,
     }
-    expect(inspect(obj, { customInspect: false })).to.equal('{ inspect: [Function inspect] }')
-  })
-
-  it('uses custom inspect function is `customInspect` is turned on', () => {
-    const obj = {
-      inspect: () => 1,
-    }
-    expect(inspect(obj, { customInspect: true })).to.equal('1')
+    expect(inspect(obj)).to.equal('{ inspect: [Function inspect] }')
   })
 
   it('does not use custom inspect functions if `customInspect` is turned off', () => {
     const obj = {
-      inspect: () => 1,
+      [Symbol.for('nodejs.util.inspect.custom')]: () => 1,
     }
-    expect(inspect(obj, { customInspect: false })).to.equal('{ inspect: [Function inspect] }')
+    expect(inspect(obj, { customInspect: false })).to.equal(
+      '{ [Symbol(nodejs.util.inspect.custom)]: [Function [nodejs.util.inspect.custom]] }'
+    )
   })
 
   it('uses custom inspect function if `customInspect` is turned on', () => {
     const obj = {
-      inspect: () => 'abc',
+      [Symbol.for('nodejs.util.inspect.custom')]: () => 1,
     }
-    expect(inspect(obj, { customInspect: true })).to.equal('abc')
+    expect(inspect(obj, { customInspect: true })).to.equal('1')
   })
 
   it('inspects custom inspect function result', () => {
     const obj = {
-      inspect: () => ['foobarbazbing'],
+      [Symbol.for('nodejs.util.inspect.custom')]: () => ['foobarbazbing'],
     }
     expect(inspect(obj, { customInspect: true, truncate: 15 })).to.equal("[ 'foobarba…' ]")
   })
@@ -57,7 +52,7 @@ describe('objects', () => {
   it('uses a custom deeply nested inspect function if `customInspect` is turned on', () => {
     const obj = {
       sub: {
-        inspect: (depth, options) => options.stylize('Object content', 'string'),
+        [Symbol.for('nodejs.util.inspect.custom')]: (depth, options) => options.stylize('Object content', 'string'),
       },
     }
     expect(inspect(obj, { customInspect: true })).to.equal('{ sub: Object content }')
@@ -66,7 +61,7 @@ describe('objects', () => {
   it('inspect with custom object-returning inspect', () => {
     const obj = {
       sub: {
-        inspect: () => ({ foo: 'bar' }),
+        [Symbol.for('nodejs.util.inspect.custom')]: () => ({ foo: 'bar' }),
       },
     }
 

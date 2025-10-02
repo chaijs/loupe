@@ -96,10 +96,6 @@ const inspectCustom = (value: object, options: Options, type: string, inspectFn:
     return ((value as any)[nodeInspect] as Function)(options.depth, options, inspectFn)
   }
 
-  if ('inspect' in value && typeof value.inspect === 'function') {
-    return value.inspect(options.depth, options)
-  }
-
   if ('constructor' in value && constructorMap.has(value.constructor)) {
     return constructorMap.get(value.constructor)!(value, options)
   }
