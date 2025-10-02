@@ -1,4 +1,4 @@
-import loupe from '../index.js'
+import loupe from '../lib/index.js'
 import { inspect as nodeInspect } from 'util'
 import Benchmark from 'benchmark'
 const benches = []
