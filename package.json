@@ -52,7 +52,7 @@
     "@eslint/js": "^10.0.1",
     "@web/dev-server-esbuild": "^2.0.0",
     "@web/test-runner": "^1.0.0",
-    "@web/test-runner-playwright": "^0.11.0",
+    "@web/test-runner-playwright": "^1.0.0",
     "benchmark": "^2.1.4",
     "chai": "^6.0.0",
     "codecov": "^3.8.3",
