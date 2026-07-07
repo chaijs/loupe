@@ -51,7 +51,7 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@web/dev-server-esbuild": "^1.0.3",
-    "@web/test-runner": "^0.20.2",
+    "@web/test-runner": "^1.0.0",
     "@web/test-runner-playwright": "^0.11.0",
     "benchmark": "^2.1.4",
     "chai": "^6.0.0",
