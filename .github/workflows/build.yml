@@ -28,10 +28,9 @@ jobs:
     strategy:
       matrix:
         node-version:
-          - 18.x # to be removed 2025-04-30
           - 20.x # to be removed 2026-04-30
-          - 21.x # to be removed 2024-06-01
           - 22.x
+          - 25.x
     steps:
       - name: Checkout the project
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
