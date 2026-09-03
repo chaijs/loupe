@@ -9,6 +9,16 @@ describe('strings', () => {
     expect(inspect("ab'c")).to.equal("'ab\\'c'")
   })
 
+  it('escapes backslashes', () => {
+    expect(inspect('a\\b')).to.equal("'a\\\\b'")
+  })
+
+  it('distinguishes a real newline from an escaped backslash-n', () => {
+    expect(inspect('\n')).to.equal("'\\n'")
+    expect(inspect('\\n')).to.equal("'\\\\n'")
+    expect(inspect('\n')).to.not.equal(inspect('\\n'))
+  })
+
   it('does not escape double quotes', () => {
     expect(inspect('ab"c')).to.equal("'ab\"c'")
   })
