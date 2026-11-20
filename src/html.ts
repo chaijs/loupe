@@ -1,4 +1,4 @@
-import { inspectList, truncator } from './helpers.js'
+import { inspectChild, inspectList, truncator } from './helpers.js'
 import type { Inspect, Options } from './types.js'
 
 export function inspectAttribute([key, value]: [unknown, unknown], options: Options) {
@@ -10,7 +10,10 @@ export function inspectAttribute([key, value]: [unknown, unknown], options: Opti
 }
 
 export function inspectNodeCollection(collection: ArrayLike<Node>, options: Options): string {
-  return inspectList(collection, options, inspectNode as Inspect, '\n')
+  if (options.depth < 0) {
+    return options.stylize(`[${Object.prototype.toString.call(collection).slice(8, -1)}]`, 'special')
+  }
+  return inspectList(collection, options, (node, opts) => inspectChild(node, opts, inspectNode as Inspect), '\n')
 }
 
 export function inspectNode(node: Node, options: Options): string {
@@ -26,6 +29,7 @@ export function inspectNode(node: Node, options: Options): string {
 
 // @ts-ignore (Deno doesn't have Element)
 export default function inspectHTML(element: Element, options: Options): string {
+  if (options.depth < 0) return options.stylize('[HTMLElement]', 'special')
   const properties = element.getAttributeNames()
   const name = element.tagName.toLowerCase()
   const head = options.stylize(`<${name}`, 'special')

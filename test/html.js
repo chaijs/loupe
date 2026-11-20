@@ -81,8 +81,45 @@ describe('HTMLElement', () => {
 
   it('returns output including children', () => {
     expect(
-      inspect(h('div', { id: 'foo', hidden: '' }, h('pre', {}, h('code', {}, h('span', { style: 'color:red' })))))
+      inspect(h('div', { id: 'foo', hidden: '' }, h('pre', {}, h('code', {}, h('span', { style: 'color:red' })))), {
+        depth: Infinity,
+      })
     ).to.equal('<div id="foo" hidden><pre><code><span style="color:red"></span></code></pre></div>')
+  })
+
+  describe('depth', () => {
+    it('bounds descendants by their distance from the root element', () => {
+      const element = h('div', {}, h('pre', {}, h('code', {}, h('span'))))
+      expect(inspect(element, { depth: -1 })).to.equal('[HTMLElement]')
+      expect(inspect(element, { depth: 0 })).to.equal('<div>[HTMLElement]</div>')
+      expect(inspect(element, { depth: 1 })).to.equal('<div><pre>[HTMLElement]</pre></div>')
+      expect(inspect(element)).to.equal('<div><pre><code>[HTMLElement]</code></pre></div>')
+      expect(inspect(element, { depth: Infinity })).to.equal('<div><pre><code><span></span></code></pre></div>')
+    })
+
+    it('does not read attributes or children below the limit', () => {
+      const element = h('div')
+      element.getAttributeNames = () => {
+        throw new Error('read attributes beyond the depth limit')
+      }
+      Object.defineProperty(element, 'children', {
+        get() {
+          throw new Error('read children beyond the depth limit')
+        },
+      })
+      expect(inspect({ element }, { depth: 0 })).to.equal('{ element: [HTMLElement] }')
+    })
+
+    it('bounds both root node collections and element descendants once per node', () => {
+      const nodes = [h('div', {}, h('span'))]
+      for (const type of ['NodeList', 'HTMLCollection']) {
+        nodes[Symbol.toStringTag] = type
+        expect(inspect(nodes, { depth: -1 })).to.equal(`[${type}]`)
+        expect(inspect(nodes, { depth: 0 })).to.equal('[HTMLElement]')
+        expect(inspect(nodes, { depth: 1 })).to.equal('<div>[HTMLElement]</div>')
+        expect(inspect(nodes, { depth: 2 })).to.equal('<div><span></span></div>')
+      }
+    })
   })
 
   describe('truncate', () => {
@@ -92,65 +129,73 @@ describe('HTMLElement', () => {
     })
 
     it('returns the full representation when truncate is over string length', () => {
-      expect(inspect(template, { truncate: 100 })).to.equal(
+      expect(inspect(template, { depth: Infinity, truncate: 100 })).to.equal(
         '<div id="foo" hidden><pre><code><span style="color:red"></span></code></pre></div>'
       )
     })
 
     it('truncates arguments values longer than truncate (81)', () => {
-      expect(inspect(template, { truncate: 81 })).to.equal(
+      expect(inspect(template, { depth: Infinity, truncate: 81 })).to.equal(
         '<div id="foo" hidden><pre><code><span …(1)></span></code></pre></div>'
       )
     })
 
     it('truncates arguments values longer than truncate (78)', () => {
-      expect(inspect(template, { truncate: 78 })).to.equal(
+      expect(inspect(template, { depth: Infinity, truncate: 78 })).to.equal(
         '<div id="foo" hidden><pre><code><span …(1)></span></code></pre></div>'
       )
     })
 
     it('truncates arguments values longer than truncate (77)', () => {
-      expect(inspect(template, { truncate: 77 })).to.equal('<div id="foo" hidden><pre><code>…(1)</code></pre></div>')
+      expect(inspect(template, { depth: Infinity, truncate: 77 })).to.equal(
+        '<div id="foo" hidden><pre><code>…(1)</code></pre></div>'
+      )
     })
 
     it('truncates arguments values longer than truncate (64)', () => {
-      expect(inspect(template, { truncate: 64 })).to.equal('<div id="foo" hidden><pre><code>…(1)</code></pre></div>')
+      expect(inspect(template, { depth: Infinity, truncate: 64 })).to.equal(
+        '<div id="foo" hidden><pre><code>…(1)</code></pre></div>'
+      )
     })
 
     it('truncates arguments values longer than truncate (63)', () => {
-      expect(inspect(template, { truncate: 63 })).to.equal('<div id="foo" hidden><pre>…(1)</pre></div>')
+      expect(inspect(template, { depth: Infinity, truncate: 63 })).to.equal(
+        '<div id="foo" hidden><pre>…(1)</pre></div>'
+      )
     })
 
     it('truncates arguments values longer than truncate (51)', () => {
-      expect(inspect(template, { truncate: 51 })).to.equal('<div id="foo" hidden><pre>…(1)</pre></div>')
+      expect(inspect(template, { depth: Infinity, truncate: 51 })).to.equal(
+        '<div id="foo" hidden><pre>…(1)</pre></div>'
+      )
     })
 
     it('truncates arguments values longer than truncate (49)', () => {
-      expect(inspect(template, { truncate: 49 })).to.equal('<div id="foo" hidden>…(1)</div>')
+      expect(inspect(template, { depth: Infinity, truncate: 49 })).to.equal('<div id="foo" hidden>…(1)</div>')
     })
 
     it('truncates arguments values longer than truncate (26)', () => {
-      expect(inspect(template, { truncate: 26 })).to.equal('<div id="foo" hidden>…(1)</div>')
+      expect(inspect(template, { depth: Infinity, truncate: 26 })).to.equal('<div id="foo" hidden>…(1)</div>')
     })
 
     it('truncates arguments values longer than truncate (25)', () => {
-      expect(inspect(template, { truncate: 25 })).to.equal('<div id="foo" …(1)>…(1)</div>')
+      expect(inspect(template, { depth: Infinity, truncate: 25 })).to.equal('<div id="foo" …(1)>…(1)</div>')
     })
 
     it('truncates arguments values longer than truncate (24)', () => {
-      expect(inspect(template, { truncate: 24 })).to.equal('<div id="foo" …(1)>…(1)</div>')
+      expect(inspect(template, { depth: Infinity, truncate: 24 })).to.equal('<div id="foo" …(1)>…(1)</div>')
     })
 
     it('truncates arguments values longer than truncate (23)', () => {
-      expect(inspect(template, { truncate: 23 })).to.equal('<div …(2)>…(1)</div>')
+      expect(inspect(template, { depth: Infinity, truncate: 23 })).to.equal('<div …(2)>…(1)</div>')
     })
 
     it('disregards truncate when it cannot truncate further (18)', () => {
-      expect(inspect(template, { truncate: 18 })).to.equal('<div …(2)>…(1)</div>')
+      expect(inspect(template, { depth: Infinity, truncate: 18 })).to.equal('<div …(2)>…(1)</div>')
     })
 
     it('disregards truncate when it cannot truncate further (1)', () => {
-      expect(inspect(template, { truncate: 1 })).to.equal('<div …(2)>…(1)</div>')
+      expect(inspect(template, { depth: Infinity, truncate: 1 })).to.equal('<div …(2)>…(1)</div>')
     })
   })
 
