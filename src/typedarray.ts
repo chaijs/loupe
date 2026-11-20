@@ -26,6 +26,7 @@ const getArrayName = (array: TypedArray) => {
 
 export default function inspectTypedArray(array: TypedArray, options: Options): string {
   const name = getArrayName(array)
+  if (options.depth < 0) return options.stylize(`[${name}]`, 'special')
   options.truncate -= name.length + 4
   // Object.keys will always output the Array indices first, so we can slice by
   // `array.length` to get non-index properties

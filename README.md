@@ -38,6 +38,32 @@ inspect(/Test/g); // => '/Test/g'
 // ...
 ```
 
+### Depth
+
+The `depth` option limits how far Loupe follows nested values. The root has depth
+zero, and the default limit is `2`. Values beyond the limit use type summaries
+such as `[Object]`, `[Array]`, or `[Map]`. Primitive values, dates, regular
+expressions and functions keep their normal representation.
+
+```js
+inspect({ a: { b: { c: 1 } } }, { depth: 0 }); // => "{ a: [Object] }"
+inspect({ a: { b: { c: 1 } } }, { depth: 1 }); // => "{ a: { b: [Object] } }"
+inspect({ a: { b: { c: 1 } } }, { depth: Infinity }); // => "{ a: { b: { c: 1 } } }"
+```
+
+Use a negative depth to summarize the root container, or `Infinity` to inspect
+without a depth limit. Each property, array or set member, and map key or value
+uses one level. DOM elements and node collections also follow the limit, using
+`[HTMLElement]`, `[NodeList]`, or `[HTMLCollection]` beyond it. Loupe does not
+enumerate the properties or traverse the contents of a summarized container.
+Type identification and custom inspection hooks still run.
+
+Custom inspectors receive the remaining depth, including negative values, and
+can choose their own representation. A replacement value returned by a custom
+inspector is inspected at the same depth as the original value. Depth limits do
+not add circular-reference detection to arrays, maps or sets; inspecting those
+with an infinite limit still requires an acyclic value.
+
 ## Tests
 
 ```bash

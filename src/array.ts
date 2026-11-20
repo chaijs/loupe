@@ -2,6 +2,7 @@ import { inspectList, inspectProperty } from './helpers.js'
 import type { Inspect, Options } from './types.js'
 
 export default function inspectArray(array: ArrayLike<unknown>, options: Options) {
+  if (options.depth < 0) return options.stylize('[Array]', 'special')
   // Object.keys will always output the Array indices first, so we can slice by
   // `array.length` to get non-index properties
   const nonIndexProperties = Object.keys(array).slice(array.length)

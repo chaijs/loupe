@@ -76,7 +76,7 @@ describe('objects', () => {
       },
     }
 
-    expect(inspect(obj, { customInspect: true })).to.equal("{ sub: Foo { depth=2, foo=[ 'bar', 1 ] } } }")
+    expect(inspect(obj, { customInspect: true })).to.equal("{ sub: Foo { depth=1, foo=[ 'bar', 1 ] } } }")
   })
 })
 

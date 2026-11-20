@@ -114,6 +114,16 @@ export function truncate(string: string | number, length: number, tail: typeof t
   return string
 }
 
+export function inspectChild(value: unknown, options: Options, inspector: Inspect = options.inspect): string {
+  const depth = options.depth
+  options.depth = depth - 1
+  try {
+    return inspector(value, options)
+  } finally {
+    options.depth = depth
+  }
+}
+
 // eslint-disable-next-line complexity
 export function inspectList(
   list: ArrayLike<unknown>,
@@ -121,7 +131,7 @@ export function inspectList(
   inspectItem?: Inspect,
   separator = ', '
 ): string {
-  inspectItem = inspectItem || options.inspect
+  inspectItem = inspectItem || inspectChild
   const size = list.length
   if (size === 0) return ''
   const originalLength = options.truncate
@@ -191,9 +201,9 @@ export function inspectProperty([key, value]: [unknown, unknown], options: Optio
   if (typeof key === 'string') {
     key = quoteComplexKey(key)
   } else if (typeof key !== 'number') {
-    key = `[${options.inspect(key, options)}]`
+    key = `[${inspectChild(key, options)}]`
   }
   options.truncate -= (key as string).length
-  value = options.inspect(value, options)
+  value = inspectChild(value, options)
   return `${key}: ${value}`
 }

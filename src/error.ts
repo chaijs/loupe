@@ -16,6 +16,7 @@ const errorKeys = [
 ]
 
 export default function inspectObject(error: Error, options: Options) {
+  if (options.depth < 0) return options.stylize('[Error]', 'special')
   const properties = Object.getOwnPropertyNames(error).filter(key => errorKeys.indexOf(key) === -1)
   const name = error.name
   options.truncate -= name.length

@@ -11,6 +11,7 @@ function arrayFromSet(set: Set<unknown>) {
 }
 
 export default function inspectSet(set: Set<unknown>, options: Options): string {
+  if (options.depth < 0) return options.stylize('[Set]', 'special')
   if (set.size === 0) return 'Set{}'
   options.truncate -= 7
   return `Set{ ${inspectList(arrayFromSet(set), options)} }`
