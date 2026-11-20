@@ -113,6 +113,19 @@ describe('depth', () => {
     expect(inspect(set, { depth: 0 })).to.equal('Set{ [Set] }')
   })
 
+  it('preserves class circular markers at the depth limit', () => {
+    class Example {}
+    const instance = new Example()
+    instance.self = instance
+    expect(inspect(instance, { depth: 0 })).to.equal('Example{ self: Example[Circular] }')
+  })
+
+  it('preserves error circular markers at the depth limit', () => {
+    const error = new Error('message')
+    error.self = error
+    expect(inspect(error, { depth: 0 })).to.equal('Error: message { self: [Circular] }')
+  })
+
   it('passes the remaining depth to custom inspectors', () => {
     const custom = Symbol.for('nodejs.util.inspect.custom')
     const value = { [custom]: depth => `remaining=${depth}` }

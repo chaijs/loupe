@@ -13,7 +13,7 @@ export default function inspectClass(value: { new (...args: any[]): unknown }, o
   if (!name || name === '_class') {
     name = '<Anonymous Class>'
   }
-  if (options.depth < 0) return options.stylize(`[${name}]`, 'special')
+  if (options.depth < 0 && !options.seen.includes(value)) return options.stylize(`[${name}]`, 'special')
   options.truncate -= name.length
   return `${name}${inspectObject(value, options)}`
 }
