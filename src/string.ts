@@ -3,8 +3,8 @@ import type { Options } from './types.js'
 
 const stringEscapeChars = new RegExp(
   "['\\\\\\u0000-\\u001f\\u007f-\\u009f\\u00ad\\u0600-\\u0604\\u070f\\u17b4\\u17b5" +
-    '\\u200c-\\u200f\\u2028-\\u202f\\u2060-\\u206f\\ufeff\\ufff0-\\uffff]',
-  'g'
+    '\\u200c-\\u200f\\u2028-\\u202f\\u2060-\\u206f\\ufeff\\ufff0-\\uffff\\p{Default_Ignorable_Code_Point}]',
+  'gu'
 )
 
 const escapeCharacters = {
@@ -19,11 +19,14 @@ const escapeCharacters = {
 
 const hex = 16
 const unicodeLength = 4
+
+function escapeCodeUnit(unit: string): string {
+  return `\\u${`0000${unit.charCodeAt(0).toString(hex)}`.slice(-unicodeLength)}`
+}
+
+// Supplementary code points are escaped as their UTF-16 surrogate pair.
 function escape(char: string): string {
-  return (
-    escapeCharacters[char as keyof typeof escapeCharacters] ||
-    `\\u${`0000${char.charCodeAt(0).toString(hex)}`.slice(-unicodeLength)}`
-  )
+  return escapeCharacters[char as keyof typeof escapeCharacters] || char.split('').map(escapeCodeUnit).join('')
 }
 
 export default function inspectString(string: string, options: Options): string {
